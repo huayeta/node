@@ -1,9 +1,10 @@
 var koa = require('koa');
+var compress=require('koa-compress');
+var router=require('./routers/index.js');
 
 var app = koa();
 
-var router=require('./routers/index.js');
-
+app.use(compress());
 app.use(router.routes());
 
 //var session=require('koa-session');
