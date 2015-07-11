@@ -10,8 +10,11 @@
 </html>
 <script type="text/javascript" src="js/socket.io-1.2.0.js"></script>
 <script type="text/javascript">
-    var socket=io();
+    var socket=io.connect('ws://127.0.0.1:3000/chat');
     socket.emit('chat message','hello world!');
+    setInterval(function(){
+        socket.emit('emit message',navigator.userAgent);
+    },1000);
     socket.on('new message',function(msg){
         console.log(msg);
     })
