@@ -8,3 +8,11 @@
     我是主页！hello world！
 </body>
 </html>
+<script type="text/javascript" src="js/socket.io-1.2.0.js"></script>
+<script type="text/javascript">
+    var socket=io();
+    socket.emit('chat message','hello world!');
+    socket.on('new message',function(msg){
+        console.log(msg);
+    })
+</script>
