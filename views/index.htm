@@ -12,9 +12,9 @@
 <script type="text/javascript">
     var socket=io.connect('ws://127.0.0.1:3000/chat');
     socket.emit('chat message','hello world!');
-    setInterval(function(){
-        socket.emit('emit message',navigator.userAgent);
-    },1000);
+//    setInterval(function(){
+//        socket.emit('emit message',navigator.userAgent);
+//    },1000);
     socket.on('new message',function(msg){
         console.log(msg);
     })

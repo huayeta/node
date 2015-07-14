@@ -1,22 +1,52 @@
 module.exports = function(app){
     var path=require('path');
     var Router=require('koa-router');
+    var parse=require('co-body');
     var template=require('art-template');
     var mongoose=require('mongoose');
     var crypto=require('crypto');//加密用的
+    var dbFn=require('./db.js');//数据库连接
+    var util=require('./util.js');//工具函数
+    var member=require('./models/member.js');
+    
+    mongoose.connect('mongodb://127.0.0.1/huayeta');
 
     var router=new Router();
-
     template.config('base',path.resolve(__dirname,'../views/'));
     template.config('extname','.htm');
+    template.config('cache',false);//关闭缓存
 
     //模板的使用
     router.get('/',function *(next){
-
         var DATA={title:'首页标题'};
         this.body=template('index',DATA);
     });
+    router.get('/email',function *(next){
+        this.body=template('email',{});
+    });
+    //注册的路由
+    router.get('/register',function *(next){
+        this.body=template('register',{});
+    });
 
+    router.post('/register',function *(next){
+        var body= yield parse(this);
+        if(!body.account)return this.body={status:0,info:'账号不能为空！'};
+        if(!body.password)return this.body={status:0,info:'密码不能为空！'};
+        if(body.repeatpassword!=body.password)return this.body={status:0,info:'两次输入的密码不一致！'};
+        var persons=yield member.findByAccount(body.account);
+        if(persons){
+            this.body={status:0,info:'该账号已经注册!'};
+        }else{
+            var _member=new member({
+                account:body.account,
+                password:body.password
+            });
+            _member.save();
+            this.body={status:1,info:'注册成功！'};
+        }
+    });
+    
     //数据库的操作
     router.get('/mongoose',function *(next){
         //连接到huayeta这个数据库

@@ -1,29 +1,19 @@
 var koa = require('koa');
 var http=require('http');
 var app = koa();
+var port=process.env.POST || 3000;
 
+//路由
 require('./app/router.js')(app);
+
 //静态资源文件目录
 var serve=require('koa-static');
 app.use(serve('./public'));
 
 var server=http.createServer(app.callback());
 
-var io=require('socket.io')(server);
-io.of('/chat').on('connection',function(socket){
-    socket.on('chat message',function(msg){
-//        console.log('message:'+msg);
-        //单线通道
-        socket.emit('new message',msg);
-    });
-    socket.on('emit message',function(msg){
-        //广播向其他用户发消息
-        socket.broadcast.emit('new message',msg);
-    });
-    socket.on('disconnect',function(){
-        console.log('user disconnected!');
-    });
-})
+//聊天
+require('./app/chat.js')(server);
 
 //var session=require('koa-session');
 
@@ -73,4 +63,4 @@ io.of('/chat').on('connection',function(socket){
 //    log.error('server',err,ctx);
 //})
 
-server.listen(3000);
+server.listen(port);
