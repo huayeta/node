@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员登陆</title>
+    <link rel="stylesheet" href="/style/login.css">
+</head>
+<body>
+    <div class="m-login-banner">
+        <div class="inner">会员{{user}}登陆</div>
+    </div>
+    <div class="m-login-form">
+       <form>
+        <div class="list"><input type="text" class="u-txt" placeholder="账号" name="account" /></div>
+        <div class="list"><input type="password" class="u-txt" placeholder="您的密码" name="password" /></div>
+        <div class="list">
+            <input type="submit" class="btn1" value="登陆" />
+        </div>
+        <div class="br"></div>
+        <div class="list"><a href="/register" class="btn2">没有账号？注册</a></div>
+        </form>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript">
+seajs.use(['jquery','validForm','fnDialog'],function($,validForm,dialog){
+    validForm.form({
+        success:function(ret){
+            if(ret.status){
+                dialog.tips({content:ret.info});
+            }else{
+                dialog.alert({content:ret.info});
+            }
+        }
+    });
+})
+</script>

@@ -1,0 +1,13 @@
+@import url('common.css');
+
+.m-site-renewal{ width: 100%; text-align: center; padding-top: 50px;}
+.m-site-renewal .inner{ overflow: hidden; display: inline-block; *zoom:1;*display:inline;}
+.m-site-renewal .inner .pic{ margin-right: 15px;}
+.m-site-renewal .inner .info{ text-align: left;}
+.m-site-renewal .inner .title{ font-size: 35px; font-weight: bolder; color: #ff8800; padding-top: 15px;}
+.m-site-renewal .inner .des{ color: #504f4f; margin-top: 10px; font-size: 15px;}
+.m-site-renewal .inner .other{ margin-top: 40px;}
+.m-site-renewal .inner .btn1{ display: inline-block; height: 40px; line-height: 40px; background-color: #ff8800; padding: 0 15px; font-size: 16px; color: #fff; cursor: pointer; text-decoration: none; border-radius: 3px;}
+.m-site-renewal .inner .btn1:hover{ background-color: #f0952d;}
+.m-site-renewal .inner .other span{ font-size: 15px; margin-left: 25px; color: #454545;}
+.m-site-renewal .inner .other span strong{ color: #ff8800; font-weight: normal;}

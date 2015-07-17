@@ -10,4 +10,12 @@ util.md5=function(content){
     return body;
 }
 
+util.success=function(info){
+    return {status:1,info:info};
+}
+
+util.error=function(info){
+    return {status:0,info:info};
+}
+
 module.exports=util;

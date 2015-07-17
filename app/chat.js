@@ -3,7 +3,7 @@ module.exports = function(server){
     //建立独立通道
     io.of('/chat').on('connection',function(socket){
         socket.on('chat message',function(msg){
-    //        console.log('message:'+msg);
+            console.log('message:'+msg);
             //单线通道
             socket.emit('new message',msg);
         });
