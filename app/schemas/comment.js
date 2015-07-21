@@ -1,19 +1,15 @@
 var mongoose=require('mongoose');
 var util=require('../common/util');
 
-var memberSchema=new mongoose.Schema({
-    account:{unique:true,type:String,required:true},
-    password:{type:String,required:true},
-    // 0:普通会员
-    // >=50:后台会员
-    role:{type:Number,defaults:0},
+var commentSchema=new mongoose.Schema({
+    
     time:{
         create:{type:Date,defaults:new Date().getTime()},
         update:{type:Date,defaults:new Date().getTime()}
     }
 });
 
-memberSchema.pre('save',function(next){
+commentSchema.pre('save',function(next){
     var _this=this;
     
     if(this.isNew){
@@ -27,13 +23,11 @@ memberSchema.pre('save',function(next){
 });
 
 //实例方法
-memberSchema.methods={
-    checkPassword:function(password){//检测密码是否正确
-        return this.password==util.md5(password);
-    }
+commentSchema.methods={
+    
 };
 //静态方法
-memberSchema.statics={
+commentSchema.statics={
     fetch:function(cb){//查询所有用户
         return this.find({}).sort('updatatime').exec(cb);
     },
@@ -42,4 +36,4 @@ memberSchema.statics={
     }
 };
 
-module.exports=memberSchema;
+module.exports=commentSchema;

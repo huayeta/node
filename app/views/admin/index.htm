@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%title%></title>
+    <link rel="stylesheet" href="/style/admin/index.css">
+</head>
+<body>
+    <div class="m-admin-top">
+        <div class="f-fr">欢迎，<%admin['account']%>，<a href="/admin/logout">退出</a></div>
+        <h2>后台中心</h2>
+    </div>
+    <div class="m-admin-menu j-menu">
+        <ul>
+            <li><a href="">后台配置</a></li>
+            <li><a href="/admin/member/list" target="leftiframe">会员管理</a></li>
+        </ul>
+    </div>
+    <div class="m-admin-con">
+        <iframe id="leftiframe" name="leftiframe" width="100%" height="100%" frameborder="0" scrolling="true" src="/" allowtransparency="true"></iframe>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript">
+seajs.use(['jquery','dialog','dialogPlus'],function($,dialog,dialogPlus){
+    window.dialog=dialog;
+    var $menuLi=$('.j-menu li');
+    $menuLi.click(function(){
+        $menuLi.removeClass('sel');
+        $(this).addClass('sel');
+    });
+})
+</script>

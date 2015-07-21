@@ -1,7 +1,7 @@
 var parse=require('co-body');
 var template=require('../../config/template');
 var member=require('../models/member');
-var util=require('../util');
+var util=require('../common/util');
 
 exports.register=function *(next){
     this.body=template('register',{});
@@ -17,6 +17,7 @@ exports.register_post=function *(next){
         this.body=util.error('该账号已经注册!');
     }else{
         var _member=new member({
+            isNew:true,
             account:body.account,
             password:body.password
         });
@@ -26,6 +27,7 @@ exports.register_post=function *(next){
 }
 
 exports.login=function *(next){
+//    console.log(this.req.headers.referer);
     this.body=template('login',{});
 }
 
@@ -39,7 +41,12 @@ exports.login_post=function *(next){
         return this.body=util.error('密码不正确！');
     }else{
         this.session.user=user;
-        return this.body=util.success('登陆成功!');
+
+        //判断来源
+        var _url='';
+        if(this.query.redirectTo)_url=this.query.redirectTo;
+        
+        this.body=util.success('登陆成功!',_url);
     }
 }
 

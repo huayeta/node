@@ -1,0 +1,7 @@
+/* CSS Document */
+@import url("common.css");
+
+.m-tabform table{ table-layout:fixed; border-collapse:collapse; color:#444; font-weight:normal; width:100%;}
+.m-tabform table tbody th,.m-tabform table tbody td{padding:10px 0 10px 8px; font-weight:normal; word-break:break-all; color:#777; border-bottom:1px solid #eee}
+.m-tabform table tbody th{ text-align:right; }
+.m-tabform table tbody .pic-list .pic img{ padding:1px; border:1px solid #ccc;}

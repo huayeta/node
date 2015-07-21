@@ -17,13 +17,11 @@ module.exports = function(app){
         
     var router=new Router();
     
-    router.use(function *(next){
-        console.log(this.session.user);
-        yield next;
-    });
-    
     var index=require('../app/controllers/index');
     var member=require('../app/controllers/member');
+    var user=require('../app/controllers/user');
+    var admin=require('../app/controllers/admin');
+    var adminMember=require('../app/controllers/adminMember');
     
     //首页
     router.get('/',index.index);
@@ -35,6 +33,17 @@ module.exports = function(app){
     router.post('/login',member.login_post);
     router.get('/getinfo',member.getinfo);
     router.get('/logout',member.logout);
+    
+    //后台列表
+    router.get('/admin',admin.admin);
+    router.get('/admin/login',admin.login);
+    router.post('/admin/login',admin.login_post);
+    router.get('/admin/index',user.adminRequired,admin.index);
+    //会员添加相关
+    router.get('/admin/member/add',user.adminRequired,adminMember.memberAdd);
+    router.post('/admin/member/add',user.adminRequired,adminMember.memberAdd_post);
+    router.get('/admin/member/del',user.adminRequired,adminMember.memberDel);
+    router.get('/admin/member/list',user.adminRequired,adminMember.memberList);
     
     app.use(router.routes());
 };

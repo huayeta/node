@@ -13,6 +13,6 @@ app.use(serve('./app/public'));
 var server=http.createServer(app.callback());
 
 //聊天
-require('./app/chat.js')(server);
+require('./app/common/chat.js')(server);
 
 server.listen(port);

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员添加</title>
+    <link rel="stylesheet" href="/style/table-form.css">
+</head>
+<body>
+    <div class="f-m15">
+        <div class="m-tabform">
+           <form>
+           <input type="hidden" name="id" value="<%id%>" />
+            <table>
+                <tbody>
+                    <tr>
+                        <th width="120">用户名：</th>
+                        <td><input type="text" class="u-txt" name="account" datatype="*" value="<%account%>" /></td>
+                    </tr>
+                    <tr>
+                        <th>密码：</th>
+                        <td><input type="password" class="u-txt" name="password" /></td>
+                    </tr>
+                    <tr>
+                        <th>重复密码：</th>
+                        <td><input type="password" class="u-txt" name="repeatpassword"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript" src="/js/admin/add.js"></script>

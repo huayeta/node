@@ -1,7 +1,7 @@
 var mongoose=require('mongoose');
 var util=require('../common/util');
 
-var memberSchema=new mongoose.Schema({
+var adminMemberSchema=new mongoose.Schema({
     account:{unique:true,type:String,required:true},
     password:{type:String,required:true},
     // 0:普通会员
@@ -13,33 +13,33 @@ var memberSchema=new mongoose.Schema({
     }
 });
 
-memberSchema.pre('save',function(next){
-    var _this=this;
-    
+adminMemberSchema.pre('save',function(next){
     if(this.isNew){
         this.time.update=this.time.create=new Date().getTime();
     }else{
         this.time.update=new Date().getTime();
     }
-    
-    _this.password=util.md5(this.password);
+    this.password=util.md5(this.password);
     next();
 });
 
 //实例方法
-memberSchema.methods={
+adminMemberSchema.methods={
     checkPassword:function(password){//检测密码是否正确
         return this.password==util.md5(password);
     }
 };
 //静态方法
-memberSchema.statics={
+adminMemberSchema.statics={
     fetch:function(cb){//查询所有用户
         return this.find({}).sort('updatatime').exec(cb);
     },
     findByAccount:function(account,cb){//通过账号查出用户的信息
         return this.findOne({'account':account}).exec(cb);
+    },
+    findById:function(id,cb){
+        return this.findOne({'_id':id}).exec(cb);
     }
 };
 
-module.exports=memberSchema;
+module.exports=adminMemberSchema;

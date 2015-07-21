@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>会员登陆</title>
+    <title>后台会员登录</title>
     <link rel="stylesheet" href="/style/login.css">
 </head>
 <body>
     <div class="m-login-banner">
-        <div class="inner">会员登陆</div>
+        <div class="inner">后台会员登录</div>
     </div>
     <div class="m-login-form">
        <form>
@@ -16,8 +16,6 @@
         <div class="list">
             <input type="submit" class="btn1" value="登陆" />
         </div>
-        <div class="br"></div>
-        <div class="list"><a href="/register" class="btn2">没有账号？注册</a></div>
         </form>
     </div>
 </body>
@@ -31,6 +29,8 @@ seajs.use(['jquery','validForm','fnDialog'],function($,validForm,dialog){
                 dialog.tips({content:ret.info,callback:function(){
                     if(ret.url){
                         window.location.href=ret.url;
+                    }else{
+                        window.location.href='/admin/index';
                     }
                 }});
             }else{
