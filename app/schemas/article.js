@@ -1,10 +1,11 @@
 var mongoose=require('mongoose');
-var util=require('../common/util');
+var tools=require('../common/tools');
 
 var articleSchema=new mongoose.Schema({
     title:{type:String,required:true},
-    hits:{type:Number},
+    hits:{type:Number,defaults:0},
     author:{type:String},
+    source:{type:String},
     content:{type:String},
     time:{
         create:{type:Date,defaults:new Date().getTime()},
@@ -19,7 +20,6 @@ articleSchema.pre('save',function(next){
         this.time.update=new Date().getTime();
     }
     
-    this.password=util.md5(this.password);
     next();
 });
 

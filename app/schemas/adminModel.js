@@ -1,39 +1,38 @@
 var mongoose=require('mongoose');
 var tools=require('../common/tools');
 
-var commentSchema=new mongoose.Schema({
-    
+var adminMemberSchema=new mongoose.Schema({
+    name:{type:String},
+    module:{type:String},
+    category_template:{type:String},
+    list_template:{type:String},
+    show_template:{type:String},
     time:{
         create:{type:Date,defaults:new Date().getTime()},
         update:{type:Date,defaults:new Date().getTime()}
     }
 });
 
-commentSchema.pre('save',function(next){
-    var _this=this;
-    
+adminMemberSchema.pre('save',function(next){
     if(this.isNew){
         this.time.update=this.time.create=new Date().getTime();
     }else{
         this.time.update=new Date().getTime();
     }
-    
-    _this.password=tools.md5(this.password);
     next();
 });
 
 //实例方法
-commentSchema.methods={
-    
+adminMemberSchema.methods={
 };
 //静态方法
-commentSchema.statics={
-    fetch:function(cb){//查询所有用户
+adminMemberSchema.statics={
+    fetch:function(cb){
         return this.find({}).sort('time.create').exec(cb);
     },
-    findByAccount:function(account,cb){//通过账号查出用户的信息
-        return this.findOne({'account':account}).exec(cb);
+    findById:function(id,cb){
+        return this.findOne({'_id':id}).exec(cb);
     }
 };
 
-module.exports=commentSchema;
+module.exports=adminMemberSchema;

@@ -68,11 +68,8 @@ jQuery(function() {
 	var dialog = top.dialog.get(window);
 	var DATA=dialog.data;
 	var size=DATA.size;
-	var serverUrl='?m=attachment&c=images&a=upload';
-	if(DATA.isProduct)serverUrl='?m=attachment&c=images&a=upload&thumb=2';
-	if(DATA.isPhoto)serverUrl='?m=attachment&c=images&a=upload&thumb=1';
+	var serverUrl='/upload/image';
 	if(DATA.url)serverUrl=DATA.url;
-	if(DATA.isadmin)serverUrl+='&isadmin='+DATA.isadmin;
 	var serverOri=serverUrl;
 	var watermark=$('[data-watermark]');
 	if(watermark.size()>0 && watermark.is(':checked')){

@@ -1,7 +1,7 @@
 var parse=require('co-body');
 var template=require('../../config/template');
 var adminMember=require('../models/adminMember');
-var util=require('../common/util');
+var tools=require('../common/tools');
 var _=require('underscore');
 
 exports.admin=function *(next){
@@ -14,12 +14,12 @@ exports.login=function *(next){
 
 exports.login_post=function *(next){
     var body=yield parse(this);
-    if(!body.account)return this.body=util.error('请先输入账号!');
-    if(!body.password)return this.body=util.error('请先输入密码!');
+    if(!body.account)return this.body=tools.error('请先输入账号!');
+    if(!body.password)return this.body=tools.error('请先输入密码!');
     var user=yield adminMember.findByAccount(body.account);
-    if(!user)return this.body=util.error('该账号不存在!');
+    if(!user)return this.body=tools.error('该账号不存在!');
     if(!user.checkPassword(body.password)){
-        return this.body=util.error('密码不正确！');
+        return this.body=tools.error('密码不正确！');
     }else{
         this.session.admin=user;
 
@@ -27,8 +27,13 @@ exports.login_post=function *(next){
         var _url='';
         if(this.query.redirectTo)_url=this.query.redirectTo;
         
-        this.body=util.success('登陆成功!',_url);
+        this.body=tools.success('登陆成功!',_url);
     }
+}
+
+exports.logout=function *(next){
+    this.session.admin=null;
+    this.redirect('/admin/login');
 }
 
 exports.index=function *(next){

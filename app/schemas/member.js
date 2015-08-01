@@ -1,5 +1,5 @@
 var mongoose=require('mongoose');
-var util=require('../common/util');
+var tools=require('../common/tools');
 
 var memberSchema=new mongoose.Schema({
     account:{unique:true,type:String,required:true},
@@ -22,20 +22,20 @@ memberSchema.pre('save',function(next){
         this.time.update=new Date().getTime();
     }
     
-    _this.password=util.md5(this.password);
+    _this.password=tools.md5(this.password);
     next();
 });
 
 //实例方法
 memberSchema.methods={
     checkPassword:function(password){//检测密码是否正确
-        return this.password==util.md5(password);
+        return this.password==tools.md5(password);
     }
 };
 //静态方法
 memberSchema.statics={
     fetch:function(cb){//查询所有用户
-        return this.find({}).sort('updatatime').exec(cb);
+        return this.find({}).sort('time.create').exec(cb);
     },
     findByAccount:function(account,cb){//通过账号查出用户的信息
         return this.findOne({'account':account}).exec(cb);

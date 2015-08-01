@@ -608,17 +608,12 @@ define('tools',function(require,exports,module){
 				size:1,
 				type:'image',
 				url:'',
-				isadmin:'0',
-				isProduct:false,
-				isPhoto:false,
                 callback:''//绑定之后再回调
 			};
 			var url;
 			var opts=$.extend(defaults,a);
 			if(opts.type=='image'){
-				url='?m=attachment&c=images&a=dialog';
-			}else if(opts.type='file'){
-				url='?m=attachment&c=attachment&a=dialog';
+				url='/upload/image';
 			}else{
 				alert('选择的"type"类型不对');
 			}
@@ -627,12 +622,10 @@ define('tools',function(require,exports,module){
 					var _this=this;
 					var _url=url;
                     var sx=opts.target.substring(1,opts.target.length-1);
-					if($(_this).attr(sx)=='file')_url='?m=attachment&c=attachment&a=dialog';
-                    if($(_this).attr(sx)=='image')_url='?m=attachment&c=images&a=dialog';
-					if(opts.isadmin!='0')_url+='&isadmin=1';
+                    if($(_this).attr(sx)=='image')_url='/upload/image';
 					dialog.get({
 						url:_url,
-						data:{'size':opts.size,'url':opts.url,'before':opts.before,'isadmin':opts.isadmin,'isProduct':opts.isProduct,'isPhoto':opts.isPhoto},
+						data:{'size':opts.size,'url':opts.url,'before':opts.before},
 						callback:function(ret){
 							if($.type(opts.success)=='function'){opts.success(ret,_this)}
 							else{

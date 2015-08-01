@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>栏目列表</title>
+    <link rel="stylesheet" href="/style/table-list.css">
+</head>
+<body>
+    <div class="f-m15">
+        <div class="m-tips"><a data-get="/admin/category/add" class="u-btn-gray">添加栏目</a></div>
+        <div class="m-tablist">
+            <table>
+                <thead>
+                    <tr>
+                        <th align="left">名称</th>
+                        <th align="left">模型</th>
+                        <th align="left">内容</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   {%each infos as v%}
+                    <tr>
+                        <td><span class="tree" id="{%v['id']%}" pid="{%v['pid']%}" map="{%v['map']%}">+</span><span class="{%if v['type']==2%}s-red{%/if%}">{%v['name']%}</span></td>
+                        <td>{%v['module']%}</td>
+                        <td>{%v['contents']%}</td>
+                        <td align="center"><a class="f-mr5" data-get="/admin/category/add?id={%v['id']%}">编辑</a><a data-del="/admin/category/del?id={%v['id']%}">删除</a></td>
+                    </tr>
+                    {%/each%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript">
+seajs.use(['jquery','tools','tree','validForm','fnDialog'],function($,tools,tree,validForm,dialog){
+    tree.tree({
+        url:'/admin/category/list?a=ajax_category',
+        callback:function(json){
+            var html='';
+            for(var i=0,count=json.length;i<count;i++){
+                row=json[i];
+                var type='';
+                if(row.type=='2')type='s-red';
+                var template='默认';
+                if(row.template)template=row.template;
+                html+='<tr>';
+                html+='<td style="padding-left:'+(row.depth*10)+'px"><span class="tree" id="'+row.id+'" pid="'+row.pid+'" map="'+row.map+'">+</span><span class="'+type+'">'+row.name+'</span></td>';
+                html+='<td class="s-gray" align="center">'+row.moduleCN+'</td>';
+                html+='<td class="s-green" align="center">'+row.num+'</td>';
+                html+='<td align="center">';
+                html+='<a data-get="?m=site&c=memberCategory&a=add&id='+row.id+'" class="s-blue">编辑</a> ';
+                html+='<a data-del="?m=site&c=memberCategory&a=del&id='+row.id+'">删除</a>';
+                html+='</td>';
+                html+='</tr>';
+            }
+            return html;
+        }
+    });
+    tools.get();
+    tools.del();
+});
+</script>

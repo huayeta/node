@@ -5,7 +5,7 @@ var path=require('path');
 template.config('base',path.resolve(__dirname,'../app/views/'));
 template.config('extname','.htm');
 template.config('cache',false);//关闭缓存
-template.config('openTag','<%');
-template.config('closeTag','%>');
+template.config('openTag','{%');
+template.config('closeTag','%}');
 
 module.exports=template;

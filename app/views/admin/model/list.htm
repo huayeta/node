@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模型列表</title>
+    <link rel="stylesheet" href="/style/table-list.css">
+</head>
+<body>
+    <div class="f-m15">
+        <div class="m-tips"><a data-get="/admin/model/add" class="u-btn-gray">添加模型</a></div>
+        <div class="m-tablist">
+            <table>
+                <thead>
+                    <tr>
+                        <th align="left">模型</th>
+                        <th align="left">标识</th>
+                        <th align="left">分类页</th>
+                        <th align="left">列表页</th>
+                        <th align="left">内容页</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   {%each infos as v%}
+                    <tr>
+                        <td><span class="s-blue">{%v['name']%}</span></td>
+                        <td>{%v['module']%}</td>
+                        <td>{%v['category_template']%}</td>
+                        <td>{%v['list_template']%}</td>
+                        <td>{%v['show_template']%}</td>
+                        <td align="center"><a class="f-mr5" data-get="/admin/model/add?id={%v['id']%}">编辑</a><a data-del="/admin/model/del?id={%v['id']%}">删除</a></td>
+                    </tr>
+                    {%/each%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript">
+seajs.use(['tools'],function(tools){
+    tools.get();
+    tools.ajax();
+    tools.del();
+})
+</script>

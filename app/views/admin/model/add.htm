@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模型添加</title>
+    <link rel="stylesheet" href="/style/table-form.css">
+</head>
+<body>
+    <div class="f-m15">
+        <div class="m-tabform">
+           <form>
+           <input type="hidden" name="id" value="{%id%}" />
+            <table>
+                <tbody>
+                    <tr>
+                        <th width="120">模型名称：</th>
+                        <td><input type="text" class="u-txt" name="name" datatype="*" value="{%name%}" /></td>
+                    </tr>
+                    <tr>
+                        <th>模型标识：</th>
+                        <td><input type="text" class="u-txt" name="module" datatype="/a-z/" value="{%module%}" /></td>
+                    </tr>
+                    <tr>
+                        <th>分类页：</th>
+                        <td><select class="u-slt" datatype="*" name="category_template">{%each categorys as value%}<option value="{%value%}" {%if value==category%}selected{%/if%}>{%value%}</option>{%/each%}</select></td>
+                    </tr>
+                    <tr>
+                        <th>列表页：</th>
+                        <td><select class="u-slt" datatype="*" name="list_template">{%each lists as value%}<option value="{%value%}" {%if value==list%}selected{%/if%}>{%value%}</option>{%/each%}</select></td>
+                    </tr>
+                    <tr>
+                        <th>内容页：</th>
+                        <td><select class="u-slt" datatype="*" name="show_template">{%each shows as value%}<option value="{%value%}" {%if value==show%}selected{%/if%}>{%value%}</option>{%/each%}</select></td>
+                    </tr>
+                </tbody>
+            </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript" src="/js/admin/add.js"></script>

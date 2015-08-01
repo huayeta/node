@@ -7,8 +7,8 @@
 
 /* 首页左侧 */
 .m-admin-menu{ position: absolute; top: 50px; left: 0; bottom: 0; width: 140px; background: #2e2e2e; box-shadow: 1px 1px 3px #000; color: #fff; font-size: 13px;}
-.m-admin-menu ul{ padding: 25px 0; border-bottom: 1px solid #4d4d4d;}
-.m-admin-menu ul li{ padding: 0 20px; line-height: 40px;}
+.m-admin-menu ul{ padding: 10px 0; border-bottom: 1px solid #4d4d4d;}
+.m-admin-menu ul li{ padding: 0 20px; line-height: 30px;}
 .m-admin-menu ul li a{ color: #fff; display: block; text-decoration: none;}
 .m-admin-menu ul li.sel,.m-admin-menu ul li:hover{ background: #242424;}
 

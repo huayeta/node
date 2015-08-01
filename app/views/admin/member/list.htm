@@ -17,12 +17,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                   <%each infos as v%>
+                   {%each infos as v%}
                     <tr>
-                        <td><span class="s-blue"><%v['account']%></span></td>
-                        <td align="center"><a class="f-mr5" data-get="/admin/member/add?id=<%v['id']%>">编辑</a><a data-del="/admin/member/del?id=<%v['id']%>">删除</a></td>
+                        <td><span class="s-blue">{%v['account']%}</span></td>
+                        <td align="center"><a class="f-mr5" data-get="/admin/member/add?id={%v['id']%}">编辑</a><a data-del="/admin/member/del?id={%v['id']%}">删除</a></td>
                     </tr>
-                    <%/each%>
+                    {%/each%}
                 </tbody>
             </table>
         </div>
