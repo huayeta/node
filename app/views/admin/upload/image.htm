@@ -72,11 +72,8 @@ seajs.use(['jquery','tools','fnDialog','validForm'],function($,tools,dialog,vali
     $(function(){
         var DATA=dialog.dialog.data;
         var MAXSIZE=DATA.size;
-        var URL='?m=attachment&c=images&a=document&size='+MAXSIZE;
+        var URL='/upload/image_document?size='+MAXSIZE;
         var LIST=[];//在线图库
-        if(DATA.isadmin){
-            URL+='&isadmin='+DATA.isadmin;
-        }
         var attachment=$('#attachment');
         attachment.attr('src',URL);
         function getList(){
@@ -84,7 +81,6 @@ seajs.use(['jquery','tools','fnDialog','validForm'],function($,tools,dialog,vali
             URL=attachment.contents(0)[0].URL;
             validForm.request({
                 url:URL,
-                isJson:true,
                 async:false,
                 success:function(ret){
                     if(ret.status){

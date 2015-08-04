@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>图片管理</title>
+<link rel="stylesheet" type="text/css" href="/style/common.css">
+<link rel="stylesheet" type="text/css" href="/js/plugins/webuploader/css/webuploader-img.css">
+</head>
+<body>
+<div class="g-yskj">
+<div class="j-dialog f-oh">
+<div class="m-title">
+<div class="search f-mr0 f-ml0">
+<form method="post" action="">
+<input type="hidden" name="m" value="attachment">
+<input type="hidden" name="c" value="images">
+<input type="hidden" name="a" value="document">
+搜索：<input type="text" class="u-txt" name="keyword" /><input type="submit" value="搜索" class="u-btn u-btn-flat u-btn-txt f-ml10" />
+</form>
+</div>
+</div>
+<fieldset class="u-fieldset f-pdb0" id="uploader-img-list">
+<legend>图片列表</legend>
+<div class="m-queueList">
+<ul class="f-cb">
+{%each infos as v%}
+<li title="{%v['filename']%}"><div class="onRight"></div><img src="{%v['filepath']%}"></li>
+{%/each%}
+</ul>
+</div>
+</fieldset>
+<!--m-queueList end-->
+<div class="u-bottom f-mt15">{$pages}</div>
+</div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript">
+seajs.use(['jquery','tools','fnDialog'],function($,tools,dialog){
+    $(function(){
+        var size=tools.parseUrl(location.href).params['size'];
+        var uploaderList=$('#uploader-img-list');
+        $('form:first').append('<input type="hidden" name="size" value="'+size+'">');
+        function updateLoaderSize(){
+            return uploaderList.find('li.on').size();
+        }
+        uploaderList.delegate('li','click',function(){
+            var _this=$(this);
+            if(_this.is('.on')){
+                _this.removeClass('on');
+            }else{
+                if (size>updateLoaderSize()){
+                    _this.addClass('on');
+                }else{
+                    uploaderList.find('li.on:first').removeClass('on');
+                    _this.addClass('on');
+                }
+            }
+        });
+    })
+});
+</script>

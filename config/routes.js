@@ -40,6 +40,7 @@ module.exports = function(app){
     //上传相关
     router.get('/upload/image',user.adminRequired,upload.image);
     router.post('/upload/image',user.adminRequired,upload.image_post);
+    router.get('/upload/image_document',user.adminRequired,upload.image_document);
     
     //后台列表
     router.get('/admin',admin.admin);
