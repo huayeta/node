@@ -3,7 +3,8 @@ var formidable = require('formidable');
 var fs = require('fs');
 var path = require('path');
 var tools = require('../common/tools');
-var adminUpload =require('../models/adminUpload')
+var adminUpload =require('../models/adminUpload');
+var page=require('../common/page');
 
 exports.image = function* (next) {
     var DATA = {
@@ -30,12 +31,6 @@ function exists(dir) {
 function mkdir(dir) {
     return function (cb) {
         fs.mkdir(dir, 0777, cb);
-    }
-}
-
-function stat(dir) {
-    return function (cb) {
-        fs.stat(dir, cb);
     }
 }
 
@@ -88,9 +83,16 @@ exports.image_post = function* (next) {
 }
 
 exports.image_document=function *(next){
+    if(this.query.kw){
+        var results=yield page({search:{filename:new RegExp(this.query.kw,'i')},model:adminUpload,pageLimit:12,ctx:this});
+    }else{
+        var results=yield page({model:adminUpload,pageLimit:12,ctx:this});
+    }
     var DATA = {
         title: '图片列表',
-        infos:yield adminUpload.fetch()
+        kw:this.query.kw,
+        infos:results.infos,
+        pages:results.page.pages
     };
     if(tools.isJson(this)){
         return this.body=tools.success(DATA.infos);

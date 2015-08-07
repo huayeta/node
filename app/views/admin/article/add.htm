@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章添加</title>
+    <link rel="stylesheet" href="/style/table-form.css">
+</head>
+<body>
+    <div class="g-con">
+        <div class="j-dialog">
+            <div class="f-m15">
+                <div class="m-tabform">
+                   <form>
+                   <input type="hidden" name="id" value="<% id %>" />
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th width="120">选择栏目：</th>
+                                <td>
+                                   <select class="u-slt" name="categoryid">
+                                   {% for value in categorys %}
+                                    <option value="<% value.id %>" {% if value.id==categoryid %}selected{% endif %}><% value.name %></option>
+                                    {% endfor %}
+                                    </select>
+                                    </td>
+                            </tr>
+                            <tr>
+                                <th>文章名称：</th>
+                                <td><input type="text" class="u-txt" size="30" name="title" value="<% title %>" /></td>
+                            </tr>
+                            <tr>
+                                <th>缩略图：</th>
+                                <td><input type="text" class="u-txt" size="30" name="image" value="<% image %>" data-upload-val /><a class="f-ml15 u-btn u-btn-big" data-upload>添加图片</a></td>
+                            </tr>
+                            <tr>
+                                <th>文章外链：</th>
+                                <td><input type="text" class="u-txt" size="30" name="url" value="<% url %>" /></td>
+                            </tr>
+                            <tr>
+                                <th>关键字：</th>
+                                <td><input type="text" class="u-txt" size="30" name="keywords" value="<% keywords %>" /></td>
+                            </tr>
+                            <tr>
+                                <th>栏目描述：</th>
+                                <td><input type="text" class="u-txt" size="30" name="description" value="<% description %>" /></td>
+                            </tr>
+                            <tr>
+                                <th>作者：</th>
+                                <td><input type="text" class="u-txt" size="30" name="author" value="<% author %>" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="editor"><textarea name="content"  class="ckeditor"><% content %></textarea></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript" src="/js/admin/add.js"></script>
+<script type="text/javascript" src="/js/plugins/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+seajs.use(['jquery','tools'],function($,tools){
+    tools.upload();
+})
+</script>

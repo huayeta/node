@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章列表</title>
+    <link rel="stylesheet" href="/style/table-list.css">
+</head>
+<body>
+    <div class="f-m15">
+        <div class="m-tips"><a class="u-btn-gray f-mr10" href="javascript:history.go(-1);">返回</a><a data-get="/admin/article/add" class="u-btn-gray">添加文章</a></div>
+        <div class="m-tablist">
+            <table>
+                <thead>
+                    <tr>
+                        <th align="left">文章名称</th>
+                        <th align="left">点击</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   {% for v in infos %}
+                    <tr>
+                        <td><% v.title %></td>
+                        <td><% v.hits %></td>
+                        <td align="center"><a class="f-mr5" data-get="/admin/article/add?id=<% v.id %>">编辑</a><a data-del="/admin/article/del?id=<% v.id %>">删除</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript">
+seajs.use(['jquery','tools','validForm','fnDialog'],function($,tools,validForm,dialog){
+    tools.get();
+    tools.del();
+});
+</script>

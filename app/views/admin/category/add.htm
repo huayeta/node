@@ -13,44 +13,46 @@
             <table>
                 <tbody>
                     <tr>
-                        <th width="120">栏目类型：</th>
-                        <td><select class="u-slt" name="type"><option value="1">栏目</option><option value="2">分类</option></select></td>
-                    </tr>
-                    <tr>
-                        <th>栏目模型：</th>
-                        <td><select class="u-slt" name="module"><option></option></select></td>
+                        <th width="120">栏目模型：</th>
+                        <td>
+                           <select class="u-slt" name="module">
+                           {%each modules as value%}
+                            <option value="{%value.module%}" {%if value.module==module%}selected{%/if%}>{%value.name%}</option>
+                            {%/each%}
+                            </select>
+                            </td>
                     </tr>
                     <tr>
                         <th>栏目名称：</th>
-                        <td><input type="text" class="u-txt" size="30" name="name" /></td>
+                        <td><input type="text" class="u-txt" size="30" name="name" value="{%name%}" /></td>
                     </tr>
                     <tr>
                         <th>栏目图片：</th>
-                        <td><input type="text" class="u-txt" size="30" name="name" data-upload-val /><a class="f-ml15 u-btn u-btn-big" data-upload>添加图片</a></td>
+                        <td><input type="text" class="u-txt" size="30" name="image" value="{%image%}" data-upload-val /><a class="f-ml15 u-btn u-btn-big" data-upload>添加图片</a></td>
                     </tr>
                     <tr>
                         <th>栏目外链：</th>
-                        <td><input type="text" class="u-txt" size="30" name="name" /></td>
+                        <td><input type="text" class="u-txt" size="30" name="url" value="{%url%}" /></td>
                     </tr>
                     <tr>
                         <th>关键字：</th>
-                        <td><input type="text" class="u-txt" size="30" name="name" /></td>
+                        <td><input type="text" class="u-txt" size="30" name="keywords" value="{%keywords%}" /></td>
                     </tr>
                     <tr>
                         <th>栏目描述：</th>
-                        <td><input type="text" class="u-txt" size="30" name="name" /></td>
+                        <td><input type="text" class="u-txt" size="30" name="description" value="{%description%}" /></td>
                     </tr>
                     <tr>
                         <th>分类页：</th>
-                        <td><select class="u-slt" datatype="*" name="category_template">{%each categorys as value%}<option value="{%value%}" {%if value==category%}selected{%/if%}>{%value%}</option>{%/each%}</select></td>
+                        <td><select class="u-slt" datatype="*" name="category_template">{%each categorys as value%}<option value="{%value%}" {%if value==category_template%}selected{%/if%}>{%value%}</option>{%/each%}</select></td>
                     </tr>
                     <tr>
                         <th>列表页：</th>
-                        <td><select class="u-slt" datatype="*" name="list_template">{%each lists as value%}<option value="{%value%}" {%if value==list%}selected{%/if%}>{%value%}</option>{%/each%}</select></td>
+                        <td><select class="u-slt" datatype="*" name="list_template">{%each lists as value%}<option value="{%value%}" {%if value==list_template%}selected{%/if%}>{%value%}</option>{%/each%}</select></td>
                     </tr>
                     <tr>
                         <th>内容页：</th>
-                        <td><select class="u-slt" datatype="*" name="show_template">{%each shows as value%}<option value="{%value%}" {%if value==show%}selected{%/if%}>{%value%}</option>{%/each%}</select></td>
+                        <td><select class="u-slt" datatype="*" name="show_template">{%each shows as value%}<option value="{%value%}" {%if value==show_template%}selected{%/if%}>{%value%}</option>{%/each%}</select></td>
                     </tr>
                 </tbody>
             </table>

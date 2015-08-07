@@ -6,6 +6,9 @@ var port=process.env.POST || 3000;
 //路由
 require('./config/routes.js')(app);
 
+//模板
+require('./config/koa-swig')(app);
+
 //404页面的中间件
 app.use(function *pageNotFound(next){
   yield next;

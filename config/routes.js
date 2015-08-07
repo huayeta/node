@@ -20,11 +20,13 @@ module.exports = function(app){
     var index=require('../app/controllers/index');
     var member=require('../app/controllers/member');
     var user=require('../app/controllers/user');
+    var upload=require('../app/controllers/upload');
     var admin=require('../app/controllers/admin');
     var adminMember=require('../app/controllers/adminMember');
     var adminModel=require('../app/controllers/adminModel');
     var adminCategory=require('../app/controllers/adminCategory');
-    var upload=require('../app/controllers/upload');
+    var adminArticle=require('../app/controllers/adminArticle');
+    var adminWechat=require('../app/controllers/adminWechat');
     
     //首页
     router.get('/',index.index);
@@ -63,5 +65,12 @@ module.exports = function(app){
     router.get('/admin/category/add',user.adminRequired,adminCategory.add);
     router.post('/admin/category/add',user.adminRequired,adminCategory.add_post);
     router.get('/admin/category/del',user.adminRequired,adminCategory.del);
+    //文章相关
+    router.get('/admin/article/list',user.adminRequired,adminArticle.list);
+    router.get('/admin/article/add',user.adminRequired,adminArticle.add);
+    router.post('/admin/article/add',user.adminRequired,adminArticle.add_post);
+    router.get('/admin/article/del',user.adminRequired,adminArticle.del);
+    //微信文章搜索
+    router.get('/admin/wechat/article',user.adminRequired,adminWechat.article);
     app.use(router.routes());
 };

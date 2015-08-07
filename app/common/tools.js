@@ -43,6 +43,29 @@ tools.getUrl = function (ctx) {
     return ctx.protocol + '://' + ctx.host + ctx.url;
 }
 
+tools.getCurUrl=function(a){
+    var a=a||{};
+    var defaults={
+        ctx:'',
+        remove:[],
+        add:{}
+    };
+    var opts=_.extend(defaults,a);
+    if(!opts.ctx)return;
+    var tpl=opts.ctx.path+'?';
+    var query=opts.ctx.query;
+    for(var i in query){
+        if(opts.remove.indexOf(i)!=-1)continue;
+        if(opts.add[i])continue;
+        tpl=tpl+i+'='+query[i]+'&';
+    }
+    for(var i in opts.add){
+       tpl=tpl+i+'='+opts.add[i]+'&'; 
+    }
+    if(tpl.charAt(tpl.length-1)=='&' || tpl.charAt(tpl.length-1)=='?')tpl=tpl.substr(0,tpl.length-1);
+    return tpl;
+}
+
 tools.isGeneratorFunction = function (obj) {
     return obj && obj.constructor && 'GeneratorFunction' === obj.constructor.name;
 }

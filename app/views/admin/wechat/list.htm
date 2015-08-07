@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>微信文章搜索</title>
+    <link rel="stylesheet" href="/style/table-list.css">
+</head>
+<body>
+    <div class="f-m15">
+        <div class="m-title">
+            <div class="search">
+                <form method="get" action="">
+                    搜索：
+                    <input type="text" class="u-txt" name="keyword" value="<% keyword %>" />
+                    <input type="submit" value="搜索" class="u-btn u-btn-flat u-btn-txt f-ml10" />
+                </form>
+            </div>
+        </div>
+        <div class="m-tablist">
+            <table>
+                <thead>
+                    <tr>
+                        <th align="left">文章名称</th>
+                        <th width="150">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   {% for v in infos %}
+                    <tr>
+                        <td><a href="<% v.wxurl %>" target="_blank"><% v.title %></a></td>
+                        <td align="center"><a class="f-mr5" href="<% v.wxurl %>">查看</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="u-buttom f-mt15"><% pages %></div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript">
+seajs.use(['jquery','tools','validForm','fnDialog'],function($,tools,validForm,dialog){
+    tools.get();
+    tools.del();
+});
+</script>

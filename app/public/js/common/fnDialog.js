@@ -147,7 +147,7 @@ define('fnDialog',function(require, exports, module){
 			var H=$('.j-dialog').outerHeight()+1;	
 			height=H>maxH?maxH:H;
 		}
-		$('.g-yskj').height(height);
+		$('.g-con').height(height);
 		return height;	
 	}
 	
