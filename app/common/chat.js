@@ -6,6 +6,7 @@ module.exports = function(server){
             console.log('message:'+msg);
             //单线通道
             socket.emit('new message',msg);
+//            io.sockets.emit('new message','aaaa');
         });
         socket.on('emit message',function(msg){
             //广播向其他用户发消息

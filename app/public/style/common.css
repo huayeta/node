@@ -1,3 +1,5 @@
+@import url('font/css/font-awesome.min.css');
+
 @charset "utf-8";
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,tr,th,td,select{margin:0;padding:0;word-wrap:break-word}
 table{border-collapse:collapse;border-spacing:0;}
@@ -7,7 +9,7 @@ ol,ul{list-style:none;}
 caption{text-align:left;}
 h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
 q:before,q:after{content:'';}
-body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 14px; line-height: 1.42857143; color:#383838}
+body{font-family:Roboto,"Helvetica Neue","Hiragino Sans GB","Microsoft Yahei","WenQuanYi Micro Hei",sans-serif; font-size: 14px; line-height: 1.42857143; color:#383838}
 a{text-decoration:none; color:#454545; outline:none; cursor:pointer;}
 a:hover{text-decoration:underline; color:#245eb6; outline:none}
 i,em{ font-style:normal}

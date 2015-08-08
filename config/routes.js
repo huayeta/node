@@ -23,10 +23,12 @@ module.exports = function(app){
     var upload=require('../app/controllers/upload');
     var admin=require('../app/controllers/admin');
     var adminMember=require('../app/controllers/adminMember');
+    var adminUser=require('../app/controllers/adminUser');
     var adminModel=require('../app/controllers/adminModel');
     var adminCategory=require('../app/controllers/adminCategory');
     var adminArticle=require('../app/controllers/adminArticle');
     var adminWechat=require('../app/controllers/adminWechat');
+    var memberChat=require('../app/controllers/memberChat');
     
     //首页
     router.get('/',index.index);
@@ -55,6 +57,10 @@ module.exports = function(app){
     router.post('/admin/member/add',user.adminRequired,adminMember.memberAdd_post);
     router.get('/admin/member/del',user.adminRequired,adminMember.memberDel);
     router.get('/admin/member/list',user.adminRequired,adminMember.memberList);
+    router.get('/admin/user/add',user.adminRequired,adminUser.add);
+    router.post('/admin/user/add',user.adminRequired,adminUser.add_post);
+    router.get('/admin/user/del',user.adminRequired,adminUser.del);
+    router.get('/admin/user/list',user.adminRequired,adminUser.list);
     //模型相关
     router.get('/admin/model/list',user.adminRequired,adminModel.list);
     router.get('/admin/model/add',user.adminRequired,adminModel.add);
@@ -72,5 +78,8 @@ module.exports = function(app){
     router.get('/admin/article/del',user.adminRequired,adminArticle.del);
     //微信文章搜索
     router.get('/admin/wechat/article',user.adminRequired,adminWechat.article);
+    
+    //前台会员中心
+    router.get('/member/chat',user.userRequired,memberChat.chat);
     app.use(router.routes());
 };

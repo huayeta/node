@@ -20,7 +20,7 @@ exports.article=function *(next){
     if(keyword){
         var result=JSON.parse(yield requestWechat(keyword,page));
         if(result.status=='200')infos.infos=result.list;
-        
+        //关于分页
         infos.pages='<div class="pages"><ul>';
         if(page!=1){
             infos.pages+='<li><a href="'+tools.getCurUrl({ctx:this,add:{page:page-1}})+'">上一页</a></li>';
