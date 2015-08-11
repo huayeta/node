@@ -91,7 +91,9 @@ seajs.config({
         aTools:'mobile/angularApp/aTools',
         aBox:'mobile/angularApp/aBox',
         aComment:'mobile/angularApp/aComment',
-		wx:'http://res.wx.qq.com/open/js/jweixin-1.0.0.js'
+		wx:'http://res.wx.qq.com/open/js/jweixin-1.0.0.js',
+        handler:'js/common/handler',
+        widget:'js/common/widget'
 	},
 	map: [
 		[ /^(.*\/.*\.(?:css|js))(?:.*)$/i, '$1?t=20150704' ]

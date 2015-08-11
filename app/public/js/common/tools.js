@@ -4,20 +4,6 @@ define('tools',function(require,exports,module){
 	var jquery=jQuery=$=require('jquery');
 	//选项卡
 	(function(a){a.fn.tabs=function(){this.each(function(){if(a(this).children().size()>2){alert("选项卡子元素超过两个");return}a(this).children(":eq(1)").children().hide().eq(0).show();if(a(this).find(".opt").size()==1){var b=a(this).find(".opt").children()}else{var b=a(this).children(":eq(0)").children();if(b.size()<1){return false}else{if(b.size()==1){b=b.children()}}}b.each(function(c){a(this).click(function(){a(this).parent().children().removeClass("select");a(this).addClass("select");a(this).parents(".tabs:first").children(":eq(1)").children().hide().eq(c).show()})});if(a(this).attr("scroll")!="undefined"){}})};a(function(){a(".tabs").tabs();a('.tabs .opt').children('.select').click();})})(jquery);
-	//搜索value点击恢复初始
-	$('.txt').bind({focus:function(){if (this.value == this.defaultValue){this.value="";$(this).addClass('txt_on');}},blur:function(){if (this.value == ""){this.value = this.defaultValue;$(this).removeClass('txt_on')}}});
-	//年龄
-(function(a){a.fn.age=function(d){var b="",c="",d;this.each(function(){if(typeof d=="undefined"){d=a(this).attr("def")}c='<option value="">请选择</option>';for(i=12;i<120;i++){b=d==i?"selected":"";c+='<option value="'+i+'" '+b+" >"+i+"</option>"}a(this).empty().append(c)})};a(function(){a(".age").age()})})(jQuery);
-//星座
-(function(a){a.fn.constellation=function(e){var b="",c="",e,d={"121-219":"水瓶座","220-320":"双鱼座","321-420":"白羊座","421-521":"金牛座","522-621":"双子座","622-722":"巨蟹座","723-823":"狮子座","824-923":"处女座","924-1023":"天秤座","1024-1122":"天蝎座","1123-1221":"射手座","1222-120":"魔羯座"};this.each(function(){var f=a(this).attr("def");if(typeof e=="undefined"){a.each(d,function(h,g){if(f==g){e=h}})}c='<option value="">请选择</option>';a.each(d,function(h,g){b=e==h?"selected":"";c+='<option value="'+g+'" '+b+" >"+g+"</option>"});a(this).empty().append(c)})};a(function(){a(".constellation").constellation()})})(jQuery);
-//血型
-(function(a){a.fn.blood=function(e){var b="",c="",e,d=["A型","B型","O型","AB型","其他"];this.each(function(){if(typeof e=="undefined"){e=a(this).attr("def")}c='<option value="">请选择</option>';for(i=0;i<5;i++){b=e==d[i]?"selected":"";c+='<option value="'+d[i]+'" '+b+" >"+d[i]+"</option>"}a(this).empty().append(c)})};a(function(){a(".blood").blood()})})(jQuery);
-//生肖
-(function(a){a.fn.zodiac=function(e){var b="",c="",e,d=["鼠","牛","虎","兔","龙","蛇","马","羊","猴","鸡","狗","猪"];this.each(function(){if(typeof e=="undefined"){e=a(this).attr("def")}c='<option value="">请选择</option>';for(i=0;i<d.length;i++){b=e==d[i]?"selected":"";c+='<option value="'+d[i]+'" '+b+" >"+d[i]+"</option>"}a(this).empty().append(c)})};a(function(){a(".zodiac").zodiac()})})(jQuery);
-//职业
-(function(a){a.fn.profession=function(e){var b="",c="",e,d=["在校学生","固定工作者","自由职业者","待业/无业/失业","退休","其他"];this.each(function(){if(typeof e=="undefined"){e=a(this).attr("def")}c='<option value="">请选择</option>';for(i=0;i<6;i++){b=e==d[i]?"selected":"";c+='<option value="'+d[i]+'" '+b+" >"+d[i]+"</option>"}a(this).empty().append(c)})};a(function(){a(".profession").profession()})})(jQuery);
-//学历
-(function(a){a.fn.educational=function(e){var b="",c="",e,d=["小学以下","初中","高中","中专","大专","本科","研究生","博士及以上"];this.each(function(){if(typeof e=="undefined"){e=a(this).attr("def")}c='<option value="">请选择</option>';for(i=0;i<8;i++){b=e==d[i]?"selected":"";c+='<option value="'+d[i]+'" '+b+" >"+d[i]+"</option>"}a(this).empty().append(c)})};a(function(){a(".educational").educational()})})(jQuery);
 //分析url地址
 	var parseUrl=function(url) {
 		var a =  document.createElement('a');
