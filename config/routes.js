@@ -81,5 +81,7 @@ module.exports = function(app){
     
     //前台会员中心
     router.get('/member/chat',user.userRequired,memberChat.chat);
+    router.post('/member/chat/topic/add',user.userRequired,memberChat.topic_add_post);
+    
     app.use(router.routes());
 };

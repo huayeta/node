@@ -25,7 +25,8 @@ app.use(function *pageNotFound(next){
       break;
     case 'json':
       this.body = {
-        message: 'Page Not Found'
+        status:0,
+        info: 'Page Not Found'
       };
       break;
     default:

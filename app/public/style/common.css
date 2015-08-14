@@ -59,6 +59,7 @@ i,em{ font-style:normal}
 .f-toe{overflow:hidden;word-wrap:normal;white-space:nowrap; text-overflow:ellipsis;}
 .f-mid{ content:''; display:inline-block; height:100%; width:1px; vertical-align:middle; margin-left:-1px;}
 .f-di{ display:inline;}
+.f-db{ display: block;}
 .f-vam{ vertical-align:-2px;}
 .f-va4{ vertical-align:4px;}
 .f-va8{ vertical-align:8px;}
@@ -209,7 +210,7 @@ i,em{ font-style:normal}
 .u-txt,.u-slt-txt,.u-txtarea,.u-slt{box-sizing: border-box; padding: 7px 12px; color:#383838; border-radius: 3px; border:1px solid; border-color:#d8d8d8 #e5e5e5 #e5e5e5 #d8d8d8; -o-box-shadow:2px 3px 3px #f6f8f9 inset; -ms-box-shadow:2px 3px 3px #f6f8f9 inset; box-shadow:2px 3px 3px #f6f8f9 inset; outline:none; -webkit-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s; transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}
 .u-txt:hover,.u-slt-txt:hover,.u-txtarea:hover,.u-slt:hover{ border:1px solid #ababab; border-right-color:#ccc; border-bottom-color:#ccc;}
 .u-txt:focus,.u-slt-txt:focus,.u-txtarea:focus,.u-slt:focus{ border:1px solid #377bcb; border-right-color:#377bcb; border-bottom-color:#377bcb;}
-.u-radio,.u-checkbox{ vertical-align:-2px; background:#fff;}
+.u-radio,.u-checkbox{ }
 .u-slt{ vertical-align:middle; height:30px; line-height:30px; height:auto\9; line-height:none\9;}
 .u-slt-txt{ padding-top:2px; padding-bottom:2px; height:28px; line-height:28px; height:auto\9; line-height:normal\9;}
 .u-bt{ padding:0.25em; width:auto;_width:0; visibility:visible; background:#ddd; height:24px; border-top:0; border-left:0; border-bottom:1px solid #666; border-right:1px solid #666; margin-right:5px; cursor:pointer; vertical-align:middle;}
@@ -336,3 +337,22 @@ i,em{ font-style:normal}
 .m-tabs .tabs-hd .opt li{ float:left; height:40px; line-height:40px; border:1px solid #dce3ed; border-bottom:1px solid #f5f5f5; cursor:pointer; margin-right:5px; padding:0 20px; background:#f5f5f5; font-size:14px;}
 .m-tabs .tabs-hd .opt li.select{ background:#fff; border-bottom:1px solid #fff;font-weight:700; padding-bottom:1px; margin-bottom:-1px;}
 .m-tabs .tabs-bd{ border:1px solid #dce3ed; border-top:0 none; padding:10px; overflow:hidden;}
+
+/* modal的样式 */
+.m-modal-mask{ position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #000; opacity: .2; z-index: 10;}
+.m-modal-con{ position: fixed; top: 50%; left: 50%; z-index: 11; width: 600px; -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); transform: translate(-50%,-50%); background-color: #fff; border-radius: 3px;}
+.m-modal-con .modal-header{ padding: 17px 20px; border-bottom: 1px solid #e6e6e6; text-align: center;}
+.m-modal-con .modal-header .title{ font-size: 18px; color: #383838; overflow:hidden;word-wrap:normal;white-space:nowrap; text-overflow:ellipsis;}
+.m-modal-con .modal-header .remove{ cursor:pointer; font-size: 14px; float: right; padding-top: 5px;}
+.m-modal-con .modal-content{ padding: 20px;}
+.m-modal-con .modal-content .modal-btn1{ display: block; width: 100%; background-color: #1976d2; color: #fff; text-align: center; font-size: 14px; cursor: pointer; border-radius: 3px; height: 40px;  line-height: 40px; text-decoration: none; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; border: 0 none;}
+.m-modal-con .modal-content .modal-btn1:hover{ background-color: #1065b9}
+.m-modal-loading{ position: fixed; top: 50%; left: 50%; z-index: 11; background: rgba(0,0,0,.6); color: #fff; border-radius: 5px; padding: 10px; width: 200px; -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); transform: translate(-50%,-50%);}
+.m-modal-loading .icon{ margin-right: 10px; display: inline-block; vertical-align: middle;}
+.m-modal-tips{ position: fixed; top: 50%; left: 50%; -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); transform: translate(-50%,-50%); z-index: 11; background: #fff; border: 1px solid #d5d5d5 ; padding: 14px 25px; font-size: 14px; color: #404040; line-height: 26px; border-radius: 3px; box-shadow: 0 0 2px 2px #eee;}
+.m-modal-tips .icon{ margin-right: 15px; color: #77bdff; font-size: 20px; display: inline-block; vertical-align: middle;}
+
+.u-form-group .tt{ margin-bottom: 5px; font-weight: 700;}
+.u-form-group .des .u-txt{ width: 100%; line-height: 22px;}
+.u-form-group .des .u-txtarea{ width: 100%;}
+.u-form-group .des label{ font-weight: 700; line-height: 1.6; padding-left: 5px;}

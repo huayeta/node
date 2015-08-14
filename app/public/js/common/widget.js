@@ -9,6 +9,7 @@
          on: function (type, fn) {
              if (!this.handlers[type]) this.handlers[type] = [];
              this.handlers[type].push(fn);
+             return this;
          },
          fire: function () {
              var args = Array.prototype.slice.call(arguments);
@@ -19,6 +20,7 @@
                      handlers[i].apply(this, args.slice(1));
                  }
              }
+             return this;
          },
          render: function (container) {
              this.renderUI();
@@ -35,7 +37,7 @@
          renderUI: function () {}, //渲染html，初始化this.boundingBox
          bindUI: function () {}, //绑定事件
          syncUI: function () {}, //渲染跟绑定完之后的回调
-         destrouctor: function () {} //销毁后的回调
+         destructor: function () {} //销毁后的回调
      }
 
      return widget;

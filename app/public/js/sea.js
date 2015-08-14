@@ -93,6 +93,7 @@ seajs.config({
         aComment:'mobile/angularApp/aComment',
 		wx:'http://res.wx.qq.com/open/js/jweixin-1.0.0.js',
         handler:'js/common/handler',
+        modal:'js/common/modal',
         widget:'js/common/widget'
 	},
 	map: [

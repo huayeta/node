@@ -11,8 +11,13 @@
             <div class="title"><span class="f-toe">room</span><i class="icon-angle-down"></i></div>
         </div>
         <div class="m-chat-member">
-            <div class="item-tt"><div class="f-fr icon"><i class="icon-plus-sign"></i></div><div class="title"><h2 class="f-toe">话题列表</h2></div></div>
-            <div class="item-icon sel"><div class="f-fl icon"><i class="icon-comment-alt"></i></div><div class="title"><h2 class="f-toe">huati</h2></div></div>
+            <div class="item-tt"><div class="f-fr icon j-topic-add"><i class="icon-plus-sign"></i></div><div class="title"><h2 class="f-toe">话题列表</h2></div></div>
+            <div class="j-topic-list"></div>
+            <script type="text/html" id="topicList">
+               <<each topic as value>>
+                <div class="item-icon"><div class="f-fl icon"><i class="icon-comment-alt"></i></div><div class="title"><h2 class="f-toe"><<value.name>></h2></div></div>
+                <</each>>
+            </script>
             <div class="item-tt"><div class="f-fr icon"><i class="icon-plus-sign"></i></div><div class="title"><h2 class="f-toe">私聊</h2></div></div>
             <div class="item-icon"><div class="f-fl pic"><img src="https://mailimg.teambition.com/logos/12.png" /></div><div class="title"><h2 class="f-toe">小艾</h2></div></div>
         </div>
@@ -66,6 +71,19 @@
             </div>
         </div>
     </div>
+    <script type="text/html" id="topicAdd">
+       <form action="/member/chat/topic/add" class="f-validForm-dn">
+        <div class="u-form-group f-mb15">
+            <div class="tt">话题名称</div>
+            <div class="des"><input type="text" class="u-txt" name="name" datatype="*"></div>
+        </div>
+        <div class="u-form-group f-mb15">
+            <div class="tt">话题目的</div>
+            <div class="des"><textarea class="u-txtarea" name="description"></textarea></div>
+        </div>
+        <input type="submit" value="保存" class="modal-btn1" />
+        </form>
+    </script>
 </body>
 </html>
 <script type="text/javascript" src="/js/sea.js"></script>
