@@ -28,7 +28,7 @@ module.exports = function(app){
     var adminCategory=require('../app/controllers/adminCategory');
     var adminArticle=require('../app/controllers/adminArticle');
     var adminWechat=require('../app/controllers/adminWechat');
-    var memberChat=require('../app/controllers/memberChat');
+    var memberTeam=require('../app/controllers/memberTeam');
     
     //首页
     router.get('/',index.index);
@@ -80,8 +80,14 @@ module.exports = function(app){
     router.get('/admin/wechat/article',user.adminRequired,adminWechat.article);
     
     //前台会员中心
-    router.get('/member/chat',user.userRequired,memberChat.chat);
-    router.post('/member/chat/topic/add',user.userRequired,memberChat.topic_add_post);
+    router.get('/team',user.userRequired,memberTeam.team);
+    router.get('/team/list',user.userRequired,memberTeam.team_list);
+    router.post('/team/add',user.userRequired,memberTeam.team_add_post);
+//    router.get('/member/team',user.userRequired,memberTeam.chat);
+    router.get('/team/topic/add',user.userRequired,memberTeam.topic_add);
+    router.post('/team/topic/add',user.userRequired,memberTeam.topic_add_post);
+    router.get('/team/topic/exit',user.userRequired,memberTeam.topic_exit);
+//    router.get('/member/team/topic/list',user.userRequired,memberTeam.topic_list);
     
     app.use(router.routes());
 };

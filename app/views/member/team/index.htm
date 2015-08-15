@@ -12,10 +12,14 @@
         </div>
         <div class="m-chat-member">
             <div class="item-tt"><div class="f-fr icon j-topic-add"><i class="icon-plus-sign"></i></div><div class="title"><h2 class="f-toe">话题列表</h2></div></div>
-            <div class="j-topic-list"></div>
+            <div class="j-topic-list">
+               {% for value in topic %}
+                <div class="item-icon" data-id="<% value._id %>"><div class="f-fl icon"><i class="icon-comment-alt"></i></div><div class="title"><h2 class="f-toe"><% value.name %></h2></div></div>
+                {% endfor %}
+            </div>
             <script type="text/html" id="topicList">
                <<each topic as value>>
-                <div class="item-icon"><div class="f-fl icon"><i class="icon-comment-alt"></i></div><div class="title"><h2 class="f-toe"><<value.name>></h2></div></div>
+                <div class="item-icon" data-id="<<value._id>>"><div class="f-fl icon"><i class="icon-comment-alt"></i></div><div class="title"><h2 class="f-toe"><<value.name>></h2></div></div>
                 <</each>>
             </script>
             <div class="item-tt"><div class="f-fr icon"><i class="icon-plus-sign"></i></div><div class="title"><h2 class="f-toe">私聊</h2></div></div>
@@ -25,21 +29,23 @@
             <div class="inner">
                 <div class="f-fr icon"><i class="icon-chevron-up"></i></div>
                 <div class="f-fl pic"><img src="https://mailimg.teambition.com/logos/12.png" /></div>
-                <div class="title"><h2 class="f-toe">zhuhui</h2></div>
+                <div class="title"><h2 class="f-toe"><% user.account %></h2></div>
             </div>
         </div>
     </div>
-    <div class="g-chat-right">
-        <div class="m-chat-theme">
-            <div class="title"><div class="f-fl pic"><i class="icon-comment-alt"></i></div><h2 class="f-fl">huati</h2><i class="icon-chevron-down icon"></i></div>
+    <div class="g-chat-right j-chat-con"><h2 class="f-m15">正在加载数据中...</h2></div>
+    <script type="text/html" id="chatCon">
+        <div class="m-chat-theme f-cb">
+            <div class="title f-fl j-topic-modify" data-id="<<_id>>"><div class="f-fl pic"><i class="icon-comment-alt"></i></div><h2 class="f-fl"><<name>></h2><i class="icon-chevron-down icon"></i></div>
         </div>
         <div class="g-chat-con-right">
            <div class="f-mb10"></div>
             <div class="m-chat-member black">
-                <div class="item-tt"><div class="title"><h2 class="f-toe">在线会员</h2></div></div>
+                <div class="item-tt"><div class="title"><h2 class="f-toe">成员菜单</h2></div></div>
                 <div class="u-hr f-mb10"></div>
-                <div class="item-icon"><div class="f-fl pic"><img src="https://mailimg.teambition.com/logos/12.png" /></div><div class="title"><h2 class="f-toe">小艾</h2></div></div>
-                <div class="item-icon"><div class="f-fl pic"><img src="https://mailimg.teambition.com/logos/12.png" /></div><div class="title"><h2 class="f-toe">小艾</h2></div></div>
+                <<each members as v>>
+                <div class="item-icon"><div class="f-fl pic"><img src="https://mailimg.teambition.com/logos/12.png" /></div><div class="title"><h2 class="f-toe"><<v.account>></h2></div></div>
+                <</each>>
                 <div class="u-hr f-mb10 f-mt10"></div>
                 <div class="item-icon"><div class="f-fl icon"><i class="icon-user"></i></div><div class="title"><h2 class="f-toe">邀请好友</h2></div></div>
             </div>
@@ -70,19 +76,36 @@
                 </div>
             </div>
         </div>
-    </div>
+    </script>
     <script type="text/html" id="topicAdd">
-       <form action="/member/chat/topic/add" class="f-validForm-dn">
-        <div class="u-form-group f-mb15">
-            <div class="tt">话题名称</div>
-            <div class="des"><input type="text" class="u-txt" name="name" datatype="*"></div>
+       <div class="modal-tabs-opt tabs-opt">
+           <span class="active">话题信息</span>
+           <span>高级设置</span>
+       </div>
+        <div class="tabs-con f-pd20">
+           <form action="/team/topic/add" class="f-validForm-dn">
+               <input type="hidden" name="id" value="<<_id>>" />
+               <input type="hidden" name="team" value="<% teamId %>" />
+                <div class="modal-form-group f-mb15">
+                    <div class="tt">话题名称</div>
+                    <div class="des"><input type="text" class="u-txt" name="name" datatype="*" value="<<name>>"></div>
+                </div>
+                <div class="modal-form-group f-mb15">
+                    <div class="tt">话题目的</div>
+                    <div class="des"><textarea class="u-txtarea" name="description"><<description>></textarea></div>
+                </div>
+                <input type="submit" value="保存" class="modal-btn1" />
+            </form>
+            <div>
+                <div class="f-tar">
+                   <<if owner!='<% user._id %>'>>
+                    <a class="model-btn gray f-mr10 j-exit">退出话题</a>
+                    <<else>>
+                    <a class="model-btn danger f-mr10 j-del">删除话题</a>
+                    <</if>>
+                </div>
+            </div>
         </div>
-        <div class="u-form-group f-mb15">
-            <div class="tt">话题目的</div>
-            <div class="des"><textarea class="u-txtarea" name="description"></textarea></div>
-        </div>
-        <input type="submit" value="保存" class="modal-btn1" />
-        </form>
     </script>
 </body>
 </html>

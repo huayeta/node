@@ -2,17 +2,19 @@ var mongoose=require('mongoose');
 var tools=require('../common/tools');
 var Schema=mongoose.Schema;
 
-var memberChatTopicSchema=new Schema({
-    name:{type:String,require:true,unique:true},
+var memberTopicSchema=new Schema({
+    name:{type:String,require:true},
     description:{type:String},
-    onlines:[{type:Schema.Types.ObjectId,ref:'member'}],
+    owner:{type:Schema.Types.ObjectId,ref:'member'},
+    team:{type:Schema.Types.ObjectId,ref:'member_team'},
+    members:[{type:Schema.Types.ObjectId,ref:'member'}],
     time:{
         create:{type:Date,defaults:new Date().getTime()},
         update:{type:Date,defaults:new Date().getTime()}
     }
 });
 
-memberChatTopicSchema.pre('save',function(next){
+memberTopicSchema.pre('save',function(next){
     if(this.isNew){
         this.time.update=this.time.create=new Date().getTime();
     }else{
@@ -23,14 +25,17 @@ memberChatTopicSchema.pre('save',function(next){
 });
 
 //实例方法
-memberChatTopicSchema.methods={
+memberTopicSchema.methods={
     
 };
 //静态方法
-memberChatTopicSchema.statics={
+memberTopicSchema.statics={
     fetch:function(cb){//查询所有内容
         return this.find({}).sort('updatatime').exec(cb);
+    },
+    findByName:function(name,cb){
+        return this.findOne({name:name}).exec(cb);
     }
 };
 
-module.exports=memberChatTopicSchema;
+module.exports=memberTopicSchema;

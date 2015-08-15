@@ -7,6 +7,7 @@ define('modal', function (require, exports, module) {
             width:500,
             height:300,
             title:'系统提示',
+            padding:'20px',
             content:'',
             isMask:true
         }
@@ -16,7 +17,7 @@ define('modal', function (require, exports, module) {
         renderUI:function(){
             switch(this.config.type){
                 case 'alert':
-                    this.boundingBox=$('<div class="m-modal-con"><div class="modal-header"><span class="remove icon-remove"></span><span class="title">系统提示</span></div><div class="modal-content">'+($.isFunction(this.config.content)?this.config.content():this.config.content)+'</div></div>');
+                    this.boundingBox=$('<div class="m-modal-con"><div class="modal-header"><span class="remove icon-remove"></span><span class="title">'+this.config.title+'</span></div><div class="modal-content" style="padding:'+this.config.padding+'">'+($.isFunction(this.config.content)?this.config.content():this.config.content)+'</div></div>');
                     break;
                 case 'loading':
                     this.boundingBox=$('<div class="m-modal-loading"><span class="icon icon-spinner icon-spin icon-2x"></span>正在加载中......</div>');
@@ -39,12 +40,12 @@ define('modal', function (require, exports, module) {
                         _this.fire('close');
                         _this.destroy();
                     });
-                    if(_this.mask){
-                        _this.mask.click(function(){
-                            _this.fire('close');
-                            _this.destroy();
-                        });
-                    }
+//                    if(_this.mask){
+//                        _this.mask.click(function(){
+//                            _this.fire('close');
+//                            _this.destroy();
+//                        });
+//                    }
                     break;
                 case 'loading':
                     break;

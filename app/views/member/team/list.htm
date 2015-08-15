@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>团队列表</title>
+    <link rel="stylesheet" href="/style/team.css">
+</head>
+<body>
+    <div class="m-team-banner">团队列表</div>
+    <div class="m-team-list j-team-list">
+        <ul>
+           {% for v in infos %}
+            <li><a href="/team?id=<% v._id %>"><i class="icon icon-group"></i><% v.name %></a></li>
+            {% endfor %}
+        </ul>
+        <ul>
+            <li class="add"><a href="javascript:void(0);" class="j-team-add"><i class="icon  icon-plus-sign"></i>添加团队</a></li>
+        </ul>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript">
+seajs.use(['jquery','modal','validForm'],function($,modal,validForm){
+    var $teamAdd=$('.j-team-add');
+    var $teamList=$('.j-team-list');
+    $teamAdd.click(function(){
+        var $modal=new modal().alert({
+            title:'添加团队',
+            content:function(){
+                return '<form class="f-validForm-dn"><div class="modal-form-group f-mb15"><div class="tt">团队名称：</div><div class="des"><input type="text" name="name" class="u-txt" datatype="*" /></div></div><input type="submit" class="modal-btn1" value="保存" /></form>';
+            }
+        });
+        validForm.form({
+            target:$modal.boundingBox.find('form'),
+            url:'/team/add',
+            success:function(ret){
+                if(!ret.status)return new modal().tips({content:ret.info});
+                $modal.destroy();
+                new modal().tips({content:'添加成功!'});
+                $teamList.find('ul:first-child').append('<li><a href="/team?id='+ret.info._id+'"><i class="icon icon-group"></i>'+ret.info.name+'</a></li>');
+            }
+        });
+    });
+});
+</script>

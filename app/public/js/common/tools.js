@@ -3,8 +3,35 @@
 define('tools',function(require,exports,module){
 	var jquery=jQuery=$=require('jquery');
 	//选项卡
-	(function(a){a.fn.tabs=function(){this.each(function(){if(a(this).children().size()>2){alert("选项卡子元素超过两个");return}a(this).children(":eq(1)").children().hide().eq(0).show();if(a(this).find(".opt").size()==1){var b=a(this).find(".opt").children()}else{var b=a(this).children(":eq(0)").children();if(b.size()<1){return false}else{if(b.size()==1){b=b.children()}}}b.each(function(c){a(this).click(function(){a(this).parent().children().removeClass("select");a(this).addClass("select");a(this).parents(".tabs:first").children(":eq(1)").children().hide().eq(c).show()})});if(a(this).attr("scroll")!="undefined"){}})};a(function(){a(".tabs").tabs();a('.tabs .opt').children('.select').click();})})(jquery);
-//分析url地址
+	var tabs=function(a){
+        var a=a||{};
+        var defaults={
+            contain:document,
+            opt:'.tabs-opt',
+            con:'.tabs-con'
+        }
+        var opts=$.extend(defaults,a);
+        var $children=$('.tabs-opt').children();
+        $children.click(function(){
+            var _this=$(this);
+            var _parent=_this.closest(opts.contain);
+            var $conChildren=_parent.find(opts.con).children();
+            var index=_this.index();
+            _this.addClass('active').siblings().removeClass('active');
+            $conChildren.hide().eq(index).show();
+        });
+        var tx=false;
+        $.each($children,function(){
+            var _this=$(this);
+            if(_this.hasClass('active')){
+                _this.trigger('click');
+                tx=true;
+                return;
+            }
+        })
+        !tx && $children.eq(0).trigger('click');
+    }
+    //分析url地址
 	var parseUrl=function(url) {
 		var a =  document.createElement('a');
 		a.href = url;
@@ -300,7 +327,6 @@ define('tools',function(require,exports,module){
 	        });
         });
 	}
-	checkSel();
     //返回全选的data-check-val的值
 	var checkval=function(attr,obj){
 		var doc=$('body');
@@ -1782,6 +1808,7 @@ define('tools',function(require,exports,module){
     }
     
 	module.exports={
+        tabs:tabs,//选项卡
         getCurParams:getCurParams,//获取url的参数
         getJquery:getJquery,//获得jquery对象
         strToJson:strToJson,//字符串转换成json

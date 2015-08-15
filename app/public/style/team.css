@@ -1,0 +1,12 @@
+@import url('common.css');
+
+.m-team-banner{ height: 60px; line-height: 60px; background: #5c6bc0; color: #fff;  font-weight: 700; text-align: center; font-size: 18px; box-shadow: 0 0 2px 0 rgba(0,0,0,5);}
+
+.m-team-list{ margin: 100px auto; width: 420px;}
+.m-team-list li{ margin-bottom: 15px;}
+.m-team-list li a{ font-size: 24px; font-weight: 400px; color: #6b757d; text-decoration: none; display:inline-block;}
+.m-team-list li a:hover{ color: #5b656d;}
+.m-team-list li a .icon{ margin-right: 20px; font-size: 30px; vertical-align: middle; color: #1976d2;}
+.m-team-list li.add{ padding-top: 15px; border-top: 1px solid #f0f0f0;}
+.m-team-list li.add a{ color: #1976d2;}
+.m-team-list li.add .icon{ font-size: 35px;}
