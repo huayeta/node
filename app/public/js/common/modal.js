@@ -25,10 +25,29 @@ define('modal', function (require, exports, module) {
                 case 'tips':
                     this.boundingBox=$('<div class="m-modal-tips"><span class="icon-info-sign icon"></span>'+($.isFunction(this.config.content)?this.config.content():this.config.content)+'</div>');
                     break;
+                case 'showBtn':
+                    this.boundingBox=$('<div class="m-modal-showBtn">'+(this.config.title?'<div class="modal-header"><span class="remove icon-remove"></span><span class="title">'+this.config.title+'</span></div>':'')+'<div class="modal-content showBtn"></div></div>');
+                    if(this.config.buttons && Array.isArray(this.config.buttons)){
+                        var tpl='';
+                        this.config.buttons.forEach(function(n){
+                            tpl+='<div class="item-menu"><i class="icon '+n.icon+'"></i><span class="tt">'+n.text+'</span></div>';
+                             n.hr && (tpl+='<div class="hr"></div>');
+                        });
+                        this.boundingBox.find('.showBtn').html(tpl);
+                    }
+                    break;
             }
             //处理模态
             if(this.config.isMask){
                 this.mask=$('<div class="m-modal-mask"></div>');
+                switch(this.config.isMask){
+                    case 'default':
+                        this.mask=$('<div class="m-modal-mask default"></div>');
+                        break;
+                    default:
+                        this.mask=$('<div class="m-modal-mask"></div>');
+                        break;
+                }
                 this.mask.appendTo('body');
             }
         },
@@ -40,14 +59,6 @@ define('modal', function (require, exports, module) {
                         _this.fire('close');
                         _this.destroy();
                     });
-//                    if(_this.mask){
-//                        _this.mask.click(function(){
-//                            _this.fire('close');
-//                            _this.destroy();
-//                        });
-//                    }
-                    break;
-                case 'loading':
                     break;
                 case 'tips':
                     setTimeout(function(){
@@ -55,25 +66,62 @@ define('modal', function (require, exports, module) {
                         _this.destroy();
                     },1500);
                     break;
+                case 'showBtn':
+                    _this.close=function(){
+                        _this.fire('close');
+                        _this.destroy();
+                    };
+                    _this.boundingBox.delegate('.modal-header .remove','click',_this.close);
+                    _this.boundingBox.delegate('.item-menu','click',function(){
+                        var $this=$(this);
+                        var index=$this.index();
+                        _this.config.buttons && Array.isArray(_this.config.buttons) && _this.config.buttons[index].click && _this.config.buttons[index].click();
+                        _this.close();
+                    })
+                    _this.mask.click(_this.close);
+                    break;
             }
         },
         syncUI:function(){
+            var _this=this;
             switch(this.config.type){
                 case 'alert':
                     this.boundingBox.css({
                         width:this.config.width
                     });
                     break;
-                case 'loading':
+                case 'showBtn':
+                    var $target=$(_this.config.target);
+                    var offset=$target.offset();
+                    var top=offset.top;
+                    var left=offset.left;
+                    var height=$target.outerHeight();
+                    var _height=this.boundingBox.height();
+                    var width=$target.outerWidth();
+                    var _width=this.boundingBox.width();
+                    var maxHeight=$(window).innerHeight();
+                    var maxWidth=$(window).innerWidth();
+                    if(top+height+_height<maxHeight){
+                        _this.boundingBox.css({top:top+height});
+                    }else{
+                        _this.boundingBox.css({bottom:maxHeight-top});
+                    }
+                    if(left+_width<maxWidth){
+                        _this.boundingBox.css({left:left});
+                    }else{
+                        _this.boundingBox.css({right:maxWidth-left-width});
+                    }
                     break;
             }
         },
         destructor:function(){
+            var _this=this;
             switch(this.config.type){
                 case 'alert':
                     this.mask && this.mask.remove();
                     break;
-                case 'loading':
+                case 'showBtn':
+                    this.mask && this.mask.remove();
                     break;
             }
         },
@@ -83,12 +131,17 @@ define('modal', function (require, exports, module) {
             return this;
         },
         loading:function(cfg){
-            $.extend(this.config,cfg,{type:'loading'});
+            $.extend(this.config,cfg,{type:'loading',isMask:'default'});
             this.render();
             return this;
         },
         tips:function(cfg){
             $.extend(this.config,cfg,{type:'tips',isMask:false});
+            this.render();
+            return this;
+        },
+        showBtn:function(cfg){
+            $.extend(this.config,cfg,{type:'showBtn',isMask:'default'});
             this.render();
             return this;
         }
@@ -103,6 +156,17 @@ define('modal', function (require, exports, module) {
         
 //    new modal().tips({content:'11111'}).on('close',function(){
 //        console.log('tips close');
+//    });
+//    new modal().showBtn({
+//        title:'话题设置',
+//        target:$('.j-topic-add')[0],
+//        buttons:[{
+//            text:'话题',
+//            icon:'icon-remove',
+//            click:function(){
+//                console.log(1);
+//            }
+//        }]
 //    });
     return modal;
 })

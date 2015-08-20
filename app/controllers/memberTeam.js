@@ -10,12 +10,28 @@ exports.team=function *(next){
     infos.topic=yield memberTopic.find({team:this.query.id,members:this.session.user._id});
     infos.user=this.session.user;
     infos.teamId=this.query.id;
+    infos.team=yield memberTeam.findById(this.query.id);
+    if(!infos.team)return this.redirect('/team/list');
     if(!tools.isJson(this)){
         this.body=yield this.render('member/team/index',infos);
     }else{
         //如果返回json
         this.body=tools.success(infos);
     }
+}
+
+//获取成员列表
+exports.infos=function *(next){
+    var infos={};
+    //话题会员
+    if(this.query.topicid){
+        infos.topic=yield memberTopic.findById(this.query.topicid).populate('members');
+    }
+    //团队会员
+    if(this.query.teamid){
+        infos.team=yield memberTeam.findById(this.query.teamid).populate('members');
+    }
+    this.body=tools.success(infos);
 }
 
 //团队添加
@@ -34,6 +50,9 @@ exports.team_add_post=function *(next){
     _newMemberTeam.isNew=true;
     _newMemberTeam.members.push(this.session.user._id);//把自己添加到团队里面
     var _new=yield _newMemberTeam.save();
+    //建立公告板
+    var _memberTopic=new memberTopic({name:'公告板',owner:this.session.user._id,members:[this.session.user._id],team:_new._id,isdel:false,isNew:true});
+    yield _memberTopic.save();
     this.body=tools.success(_new);
 }
 
@@ -45,7 +64,7 @@ exports.topic_add=function *(next){
         if(!this.query.id)return this.body=tools.success({});
         var _memberTopic=yield memberTopic.findById(this.query.id).populate('members');
         if(!_memberTopic)return this.body=tools.error('该主题不存在');
-        console.log(_memberTopic);
+//        console.log(_memberTopic);
         this.body=tools.success(_memberTopic);
     }
 }
@@ -72,7 +91,18 @@ exports.topic_add_post=function *(next){
 }
 
 //话题退出
-exports.topic_exit=function *(next){
+exports.topic_del=function *(next){
     if(!this.query.id)return this.body=tools.error('参数错误');
-//    var _memberTopic=yield 
+    var _memberTopic=yield memberTopic.findById(this.query.id);
+    if(!_memberTopic)return this.body=tools.error('话题不存在');
+    if(!_memberTopic.isdel)return this.body=tools.error('该话题不可退出');
+    if(this.session.user._id==_memberTopic.owner){
+        //是删除话题
+        yield memberTopic.remove({_id:this.query.id});
+        return this.body=tools.success('删除成功');
+    }else{
+        //退出话题
+        yield memberTopic.update({_id:this.query.id},{'$pull':{'members':this.session.user._id}});
+        return this.body=tools.success('退出成功');
+    }
 }

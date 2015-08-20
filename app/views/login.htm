@@ -24,17 +24,19 @@
 </html>
 <script type="text/javascript" src="/js/sea.js"></script>
 <script type="text/javascript">
-seajs.use(['jquery','validForm','fnDialog'],function($,validForm,dialog){
+seajs.use(['jquery','validForm','modal'],function($,validForm,modal){
     validForm.form({
         success:function(ret){
             if(ret.status){
-                dialog.tips({content:ret.info,callback:function(){
+                new modal().tips({content:ret.info}).on('close',function(){
                     if(ret.url){
                         window.location.href=ret.url;
+                    }else{
+                        window.location.href='/';
                     }
-                }});
+                });
             }else{
-                dialog.alert({content:ret.info});
+                new modal().tips({content:ret.info});
             }
         }
     });

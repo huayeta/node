@@ -5,6 +5,7 @@ var Schema=mongoose.Schema;
 var memberTopicSchema=new Schema({
     name:{type:String,require:true},
     description:{type:String},
+    isdel:{type:Boolean,defaults:true},
     owner:{type:Schema.Types.ObjectId,ref:'member'},
     team:{type:Schema.Types.ObjectId,ref:'member_team'},
     members:[{type:Schema.Types.ObjectId,ref:'member'}],
@@ -20,7 +21,7 @@ memberTopicSchema.pre('save',function(next){
     }else{
         this.time.update=new Date().getTime();
     }
-    
+    if(this.isdel==undefined)this.isdel=true;
     next();
 });
 

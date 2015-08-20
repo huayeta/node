@@ -86,7 +86,8 @@ module.exports = function(app){
 //    router.get('/member/team',user.userRequired,memberTeam.chat);
     router.get('/team/topic/add',user.userRequired,memberTeam.topic_add);
     router.post('/team/topic/add',user.userRequired,memberTeam.topic_add_post);
-    router.get('/team/topic/exit',user.userRequired,memberTeam.topic_exit);
+    router.get('/team/topic/del',user.userRequired,memberTeam.topic_del);
+    router.get('/team/infos',user.userRequired,memberTeam.infos);
 //    router.get('/member/team/topic/list',user.userRequired,memberTeam.topic_list);
     
     app.use(router.routes());

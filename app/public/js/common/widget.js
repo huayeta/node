@@ -26,8 +26,8 @@
              this.renderUI();
              this.handlers = {};
              this.bindUI();
-             this.syncUI();
              $(container || document.body).append(this.boundingBox);
+             this.syncUI();
          },
          destroy: function () {
              this.destructor();

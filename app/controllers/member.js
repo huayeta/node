@@ -41,7 +41,9 @@ exports.login_post=function *(next){
         return this.body=tools.error('密码不正确！');
     }else{
         this.session.user=user;
-
+        //更新登陆时间
+        user.time.update=new Date().getTime();
+        yield user.save();
         //判断来源
         var _url='';
         if(this.query.redirectTo)_url=this.query.redirectTo;

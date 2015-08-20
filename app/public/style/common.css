@@ -207,9 +207,9 @@ i,em{ font-style:normal}
 .u-btn-spl:hover{ border:1px solid #1282cf; text-decoration:none; color:#1282cf;}
 
 /* 表单的一些东西 */
-.u-txt,.u-slt-txt,.u-txtarea,.u-slt{box-sizing: border-box; padding: 7px 12px; color:#383838; border-radius: 3px; border:1px solid; border-color:#d8d8d8 #e5e5e5 #e5e5e5 #d8d8d8; -o-box-shadow:2px 3px 3px #f6f8f9 inset; -ms-box-shadow:2px 3px 3px #f6f8f9 inset; box-shadow:2px 3px 3px #f6f8f9 inset; outline:none; -webkit-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s; transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}
-.u-txt:hover,.u-slt-txt:hover,.u-txtarea:hover,.u-slt:hover{ border:1px solid #ababab; border-right-color:#ccc; border-bottom-color:#ccc;}
-.u-txt:focus,.u-slt-txt:focus,.u-txtarea:focus,.u-slt:focus{ border:1px solid #377bcb; border-right-color:#377bcb; border-bottom-color:#377bcb;}
+.u-txt,.u-slt-txt,.u-txtarea,.u-slt{box-sizing: border-box; padding: 7px 12px; color:#383838; border-radius: 3px; border:1px solid; border-color:#d8d8d8 #e5e5e5 #e5e5e5 #d8d8d8; outline:none;}
+.u-txt:hover,.u-slt-txt:hover,.u-txtarea:hover,.u-slt:hover{ border-color:#f0f0f0;}
+.u-txt:focus,.u-slt-txt:focus,.u-txtarea:focus,.u-slt:focus{ border-color:#f0f0f0;}
 .u-radio,.u-checkbox{ }
 .u-slt{ vertical-align:middle; height:30px; line-height:30px; height:auto\9; line-height:none\9;}
 .u-slt-txt{ padding-top:2px; padding-bottom:2px; height:28px; line-height:28px; height:auto\9; line-height:normal\9;}
@@ -333,28 +333,42 @@ i,em{ font-style:normal}
 
 /* modal的样式 */
 .m-modal-mask{ position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #000; opacity: .2; z-index: 10;}
-.m-modal-con{ position: fixed; top: 50%; left: 50%; z-index: 11; width: 600px; -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); transform: translate(-50%,-50%); background-color: #fff; border-radius: 3px;}
+.m-modal-mask.default{ background: none;}
+.m-modal-con{ position: fixed; top: 50%; left: 50%; z-index: 11; width: 600px; -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); transform: translate(-50%,-50%); background-color: #fff; border-radius: 3px; max-height: 70%; overflow-y: auto;}
 .m-modal-con .modal-header{ padding: 17px 20px; border-bottom: 1px solid #e6e6e6; text-align: center;}
 .m-modal-con .modal-header .title{ font-size: 18px; color: #383838; overflow:hidden;word-wrap:normal;white-space:nowrap; text-overflow:ellipsis;}
 .m-modal-con .modal-header .remove{ cursor:pointer; font-size: 14px; float: right; padding-top: 5px;}
 .m-modal-con .modal-content{ padding: 20px;}
-.m-modal-con .modal-content .modal-btn1{ display: block; width: 100%; background-color: #1976d2; color: #fff; text-align: center; font-size: 14px; cursor: pointer; border-radius: 3px; height: 40px;  line-height: 40px; text-decoration: none; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; border: 0 none;}
-.m-modal-con .modal-content .modal-btn1:hover{ background-color: #1065b9}
-.m-modal-con .modal-content .model-btn{outline: none; display: inline-block; text-align: center; font-size: 14px; white-space: nowrap; cursor: pointer; border-radius: 3px; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; height: 40px; line-height: 40px; padding: 0 10px; vertical-align: middle; text-decoration: none;}
-.m-modal-con .modal-content .model-btn.gray{ background: #fff; border: 1px solid #ccc; color: #383838; line-height: 38px; color: #383838;}
-.m-modal-con .modal-content .model-btn.gray:hover{ background: #eee;}
-.m-modal-con .modal-content .model-btn.danger{ background: #ff7043; color: #fff;}
-.m-modal-con .modal-content .model-btn.danger:hover{ background: #ff5d2a;}
 .m-modal-loading{ position: fixed; top: 50%; left: 50%; z-index: 11; background: rgba(0,0,0,.6); color: #fff; border-radius: 5px; padding: 10px; width: 200px; -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); transform: translate(-50%,-50%);}
 .m-modal-loading .icon{ margin-right: 10px; display: inline-block; vertical-align: middle;}
 .m-modal-tips{ position: fixed; top: 50%; left: 50%; -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); transform: translate(-50%,-50%); z-index: 11; background: #fff; border: 1px solid #d5d5d5 ; padding: 14px 25px; font-size: 14px; color: #404040; line-height: 26px; border-radius: 3px; box-shadow: 0 0 2px 2px #eee;}
 .m-modal-tips .icon{ margin-right: 15px; color: #77bdff; font-size: 20px; display: inline-block; vertical-align: middle;}
-
-.m-modal-con .modal-content .modal-tabs-opt{ overflow: hidden;}
-.m-modal-con .modal-content .modal-tabs-opt>*{ float: left; width: 50%; padding: 6px 0; font-size: 15px; color: #a6a6a6; text-align: center; cursor: pointer; overflow: hidden; line-height: 26px; text-overflow: ellipsis; background: #ededed;}
-.m-modal-con .modal-content .modal-tabs-opt>*.active{ background: #fff; color: #383838;}
-
-.m-modal-con .modal-content .modal-form-group .tt{ margin-bottom: 5px; font-weight: 700;}
-.m-modal-con .modal-content .modal-form-group .des .u-txt{ width: 100%; line-height: 22px;}
-.m-modal-con .modal-content .modal-form-group .des .u-txtarea{ width: 100%;}
-.m-modal-con .modal-content .modal-form-group .des label{ font-weight: 700; line-height: 1.6; padding-left: 5px;}
+.m-modal-showBtn{ background: #fff; box-shadow: 0 7px 21px rgba(0,0,0,.1); position: absolute; min-width: 240px; line-height: 30px; border-radius: 3px; z-index: 11;}
+.m-modal-showBtn .modal-header{ padding: 10px 0px; margin: 0 15px; border-bottom: 1px solid rgba(0,0,0,.07); color: #383838; text-align: center;}
+.m-modal-showBtn .modal-header .title{ font-size: 15px; overflow:hidden; word-wrap:normal;white-space:nowrap; text-overflow:ellipsis;}
+.m-modal-showBtn .modal-header .remove{ cursor:pointer; font-size: 14px; float: right; padding-top: 5px;}
+.m-modal-showBtn .showBtn{ padding: 5px 0;}
+/* 100%按钮 */
+.modal-content .modal-btn1{ display: block; width: 100%; background-color: #1976d2; color: #fff; text-align: center; font-size: 14px; cursor: pointer; border-radius: 3px; height: 40px;  line-height: 40px; text-decoration: none; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; border: 0 none;}
+.modal-content .modal-btn1:hover{ background-color: #1065b9}
+/* 一个一个按钮 */
+.modal-content .model-btn{outline: none; display: inline-block; text-align: center; font-size: 14px; white-space: nowrap; cursor: pointer; border-radius: 3px; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; height: 40px; line-height: 40px; padding: 0 10px; vertical-align: middle; text-decoration: none;}
+.modal-content .model-btn.gray{ background: #fff; border: 1px solid #ccc; color: #383838; line-height: 38px; color: #383838;}
+.modal-content .model-btn.gray:hover{ background: #eee;}
+.modal-content .model-btn.danger{ background: #ff7043; color: #fff;}
+.modal-content .model-btn.danger:hover{ background: #ff5d2a;}
+/* tabs */
+.modal-content .modal-tabs-opt{ overflow: hidden;}
+.modal-content .modal-tabs-opt>*{ float: left; width: 50%; padding: 6px 0; font-size: 15px; color: #a6a6a6; text-align: center; cursor: pointer; overflow: hidden; line-height: 26px; text-overflow: ellipsis; background: #ededed;}
+.modal-content .modal-tabs-opt>*.active{ background: #fff; color: #383838;}
+/* form-group */
+.modal-content .modal-form-group .tt{ margin-bottom: 5px; font-weight: 700;}
+.modal-content .modal-form-group .des .u-txt{ width: 100%; line-height: 22px;}
+.modal-content .modal-form-group .des .u-txtarea{ width: 100%;}
+.modal-content .modal-form-group .des label{ font-weight: 700; line-height: 1.6; padding-left: 5px;}
+/* item-menu */
+.modal-content .item-menu{ padding: 5px 15px; cursor: pointer; color: gray; line-height: 30px;}
+.modal-content .item-menu:hover{ background: #f2f2f2;}
+.modal-content .item-menu .icon{ float: left; vertical-align: middle; line-height: 30px;}
+.modal-content .item-menu .tt{ margin-left: 15px; overflow: hidden;text-overflow: ellipsis; white-space: nowrap;}
+.modal-content .hr{ height: 1px; background: #eee; width: 100%; margin: 5px 0;}

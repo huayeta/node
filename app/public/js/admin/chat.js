@@ -2,9 +2,15 @@ seajs.use(['jquery','modal','validForm','template','tools'],function($,modal,val
     template.config('openTag','<<');
     template.config('closeTag','>>');
     
+    var $team=$('.j-team');
     var $topicList=$('.j-topic-list');
     var $chatCon=$('.j-chat-con');
     var $topicAdd=$('.j-topic-add');
+    var $user=$('.j-user');
+    //切换团队按钮
+    $team.click(function(){
+        window.location.href='/team';
+    });
     //初始化点击按钮
     $topicList.delegate('.item-icon','click',function(){
         $(this).addClass('sel').siblings('.item-icon').removeClass('sel');
@@ -17,9 +23,57 @@ seajs.use(['jquery','modal','validForm','template','tools'],function($,modal,val
             }
         });
     });
+    //点击会员信息
+    $user.click(function(){
+        new modal().showBtn({
+            title:false,
+            target:this,
+            buttons:[
+                {text:'个人设置',icon:'icon-cog',click:function(){
+                    
+                }},
+                {text:'退出账户',icon:'icon-off',click:function(){
+                    window.location.href='/logout'
+                }}
+            ]
+        });
+    });
+    //邀请会员
+    $chatCon.delegate('.j-invitation','click',function(){
+        var _this=$(this);
+        var teamid=_this.data('teamid');
+        var topicid=_this.data('topicid');
+        var _modal=new modal();
+        //获取团队跟话题会员列表
+        validForm.request({
+            url:'/team/infos?teamid='+teamid+'&topicid='+topicid,
+            success:function(ret){
+                if(!ret.status)return new modal().tips({content:ret.info});
+                var members=[];
+                ret.info.topic.members.forEach(function(n){
+                    this.push(n._id);
+                },members);
+                ret.info.team.members.map(function(n){
+                    n.isTopic=false;
+                    if(members.indexOf(n._id)!=-1){
+                        n.isTopic=true;
+                    }
+                    return n;
+                })
+                //弹窗
+                _modal.alert({
+                    title:'邀请成员',
+                    padding:0,
+                    content:function(){
+                        return template('invitation',ret.info);
+                    }
+                });
+                tools.tabs();
+            }
+        });
+    })
     //初始化团队的信息
     $topicList.find('.item-icon:first-child').trigger('click');
-        
     //添加话题
     function modifyTopic(info,cb){
         var info=info||{};
@@ -42,6 +96,23 @@ seajs.use(['jquery','modal','validForm','template','tools'],function($,modal,val
                     new modal().tips({content:ret.info});
                 }
             }
+        });
+        topicModal.boundingBox.find('.j-del').click(function(){
+            var _this=$(this);
+            var id=_this.data('id');
+            validForm.request({
+                url:'/team/topic/del?id='+id,
+                success:function(ret){
+                    if(ret.status){
+                        new modal().tips({content:ret.info});
+                        $topicList.find('.item-icon.sel').remove();
+                        $topicList.find('.item-icon:last-child').trigger('click');
+                        topicModal.destroy();
+                    }else{
+                        new modal().tips({content:ret.info});
+                    }
+                }
+            });
         });
     }
     //添加话题按钮
