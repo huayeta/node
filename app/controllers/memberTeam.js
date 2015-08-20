@@ -1,6 +1,7 @@
 var parse=require('co-body');
 var memberTopic=require('../models/memberTopic');
 var memberTeam=require('../models/memberTeam');
+var member=require('../models/member');
 var tools=require('../common/tools');
 var _=require('underscore');
 
@@ -8,7 +9,8 @@ exports.team=function *(next){
     if(!this.query.id)return this.redirect('/team/list');
     var infos={};
     infos.topic=yield memberTopic.find({team:this.query.id,members:this.session.user._id});
-    infos.user=this.session.user;
+    infos.user=yield member.findMember(this.session.user._id);
+    if(!infos.user.avatar)infos.user.avatar='/member/common/avatar.jpg';
     infos.teamId=this.query.id;
     infos.team=yield memberTeam.findById(this.query.id);
     if(!infos.team)return this.redirect('/team/list');

@@ -28,8 +28,8 @@
         <div class="m-chat-user">
             <div class="inner">
                 <div class="f-fr icon j-user"><i class="icon-chevron-up"></i></div>
-                <div class="f-fl pic"><img src="https://mailimg.teambition.com/logos/12.png" /></div>
-                <div class="title"><h2 class="f-toe"><% user.account %></h2></div>
+                <div class="f-fl pic"><img src="<% user.avatar %>" /></div>
+                <div class="title"><h2 class="f-toe"><% user.nickname %></h2></div>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                 <div class="item-tt"><div class="title"><h2 class="f-toe">成员菜单</h2></div></div>
                 <div class="u-hr f-mb10"></div>
                 <<each members as v>>
-                <div class="item-icon"><div class="f-fl pic"><img src="https://mailimg.teambition.com/logos/12.png" /></div><div class="title"><h2 class="f-toe"><<v.account>></h2></div></div>
+                <div class="item-icon"><div class="f-fl pic"><img src="<<if avatar>><<avatar>><<else>>/images/common/avatar.jpg<</if>>" /></div><div class="title"><h2 class="f-toe"><<v.nickname>></h2></div></div>
                 <</each>>
                 <div class="u-hr f-mb10 f-mt10"></div>
                 <div class="item-icon j-invitation" data-teamid="<% teamId %>" data-topicid="<<_id>>"><div class="f-fl icon"><i class="icon-user"></i></div><div class="title"><h2 class="f-toe">邀请好友</h2></div></div>
@@ -136,7 +136,7 @@
                    <<each topic.members as v>>
                     <li>
                         <<if v._id!=topic.owner>><a class="u-btn-yellow f-fr btn">删除成员</a><</if>>
-                        <div class="pic"><img src="https://mailimg.teambition.com/logos/12.png" /></div>
+                        <div class="pic"><img src="<<if avatar>><<avatar>><<else>>/images/common/avatar.jpg<</if>>" /></div>
                         <div class="info">
                             <div class="tt"><<v.account>><<if v._id=='<% user._id %>'>>(我)<</if>></div>
                             <div class="des"><<if v._id==topic.owner>>话题创造者<<else>>成员<</if>></div>
@@ -151,7 +151,7 @@
                    <<each team.members as v>>
                     <li>
                         <<if v.isTopic>><a class="f-fr btn gray">已加入</a><<else>><a class="u-btn f-fr btn">邀请会员</a><</if>>
-                        <div class="pic"><img src="https://mailimg.teambition.com/logos/12.png" /></div>
+                        <div class="pic"><img src="<<if avatar>><<avatar>><<else>>/images/common/avatar.jpg<</if>>" /></div>
                         <div class="info">
                             <div class="tt"><<v.account>><<if v._id=='<% user._id %>'>>(我)<</if>></div>
                             <div class="des"><<if v._id==topic.owner>>话题创造者<<else>>成员<</if>></div>
@@ -161,6 +161,21 @@
                 </ul>
             </div>
         </div>
+    </script>
+    <script type="text/html" id="user">
+       <form class="f-validForm-dn">
+          <input type="hidden" name="avatar" class="avatar j-upload-val" value="<<avatar>>" />
+           <div class="modal-pic f-mb15"><div class="pic"><i class="icon icon-pencil" data-upload></i><img src="<<if avatar>><<avatar>><<else>>/images/common/avatar.jpg<</if>>" class="j-upload-val" /></div></div>
+        <div class="modal-form-group f-mb15">
+            <div class="tt">姓名</div>
+            <div class="des"><input type="text" class="u-txt" name="nickname" datatype="*" value="<<nickname>>"></div>
+        </div>
+        <div class="modal-form-group f-mb15">
+            <div class="tt">电话</div>
+            <div class="des"><input type="text" class="u-txt" name="mobile" datatype="*" value="<<mobile>>"></div>
+        </div>
+        <input type="submit" class="modal-btn1" value="保存" />
+        </form>
     </script>
 </body>
 </html>

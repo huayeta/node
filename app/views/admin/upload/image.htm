@@ -12,8 +12,8 @@
 <div class="j-dialog f-oh">
 <div class="m-tabs f-m15">
 <div class="tabs">
-<div class="tabs-hd"><ul class="opt"><li class="select">图片上传</li><li>网络地址</li><li>在线图库</li></ul></div>
-<div class="tabs-bd">
+<div class="tabs-hd"><ul class="tabs-opt"><li class="active">图片上传</li><li>网络地址</li><li>在线图库</li></ul></div>
+<div class="tabs-bd tabs-con">
 <div>
 <div class="page-container">
     <h2 class="other">
@@ -75,6 +75,7 @@ seajs.use(['jquery','tools','fnDialog','validForm'],function($,tools,dialog,vali
         var URL='/upload/image_document?size='+MAXSIZE;
         var LIST=[];//在线图库
         var attachment=$('#attachment');
+        tools.tabs();
         attachment.attr('src',URL);
         function getList(){
 //            URL=attachment[0].contentDocument.URL;

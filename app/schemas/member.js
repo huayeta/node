@@ -4,9 +4,9 @@ var tools=require('../common/tools');
 var memberSchema=new mongoose.Schema({
     account:{unique:true,type:String,required:true},
     password:{type:String,required:true},
-    // 0:普通会员
-    // >=50:后台会员
-    role:{type:Number,defaults:0},
+    avatar:{type:String},
+    nickname:{type:String},
+    mobile:{type:Number},
     time:{
         create:{type:Date,defaults:new Date().getTime()},
         update:{type:Date,defaults:new Date().getTime()}
@@ -21,8 +21,9 @@ memberSchema.pre('save',function(next){
     }else{
         this.time.update=new Date().getTime();
     }
+    if(!this.nickname)this.nickname=this.account;
     
-    _this.password=tools.md5(this.password);
+    if(this.crypto)this.password=tools.md5(this.password);
     next();
 });
 
@@ -39,6 +40,17 @@ memberSchema.statics={
     },
     findByAccount:function(account,cb){//通过账号查出用户的信息
         return this.findOne({'account':account}).exec(cb);
+    },
+    findMember:function(id){
+        var _this=this;
+        return function(cb){
+            _this.findById(id).exec(function(err,user){
+                if(user){
+                    if(!user.avatar)user.avatar='/images/common/avatar.jpg';
+                }
+                cb(err,user);
+            })
+        }
     }
 };
 

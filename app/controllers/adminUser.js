@@ -21,16 +21,16 @@ exports.add_post=function *(next){
         if(body.repeatpassword!=body.password)return this.body=tools.error('两次密码输入的不一样！');
         var user=yield member.findByAccount(body.account);
         if(user) return this.body=tools.error('该账号已经存在！');
-        var _user=new member(_.extend({isNew:true},body));
+        var _user=new member(_.extend({isNew:true,crypto:true},body));
         yield _user.save();
         this.body=tools.success('添加成功！');
     }else{
         var user=yield member.findByAccount(body.account);
         if(user && user._id!=body.id)return this.body=tools.error('该账号已经存在');
-        if(body.password && body.password!=body.repeatpassword)return this.body=tools('两次输入的密码不一样！');
+        if(body.password && body.password!=body.repeatpassword)return this.body=tools.error('两次输入的密码不一样！');
         var _user=yield member.findById(body.id);
         _user.account=body.account;
-        if(body.password)_user.password=body.password;
+        if(body.password){_user.password=body.password;_user.crypto=true;}
         yield _user.save();
         this.body=tools.success('修改成功！');
     }

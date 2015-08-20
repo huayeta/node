@@ -102,14 +102,14 @@ define('modal', function (require, exports, module) {
                     var maxHeight=$(window).innerHeight();
                     var maxWidth=$(window).innerWidth();
                     if(top+height+_height<maxHeight){
-                        _this.boundingBox.css({top:top+height});
+                        _this.boundingBox.css({top:top+height-this.config.offset.top});
                     }else{
-                        _this.boundingBox.css({bottom:maxHeight-top});
+                        _this.boundingBox.css({bottom:maxHeight-top+this.config.offset.top});
                     }
                     if(left+_width<maxWidth){
-                        _this.boundingBox.css({left:left});
+                        _this.boundingBox.css({left:left+this.config.offset.left});
                     }else{
-                        _this.boundingBox.css({right:maxWidth-left-width});
+                        _this.boundingBox.css({right:maxWidth-left-width-this.config.offset.left});
                     }
                     break;
             }
@@ -141,7 +141,7 @@ define('modal', function (require, exports, module) {
             return this;
         },
         showBtn:function(cfg){
-            $.extend(this.config,cfg,{type:'showBtn',isMask:'default'});
+            $.extend(true,this.config,{offset:{left:0,top:0}},cfg,{type:'showBtn',isMask:'default'});
             this.render();
             return this;
         }

@@ -305,6 +305,15 @@ i,em{ font-style:normal}
 .pages ul li.jump{ background:#fff; border:1px solid #e3e3e3; color:#999; padding:0 10px;}
 .pages ul li.jump input{ width:24px; height:18px; line-height:18px; vertical-align:-1px; border:0 none; background:none; color:#333; text-align:center; outline:none}
 
+/* 选项卡 */
+.m-tabs .tabs-hd{ border-bottom:2px solid #ccc;}
+.m-tabs .tabs-opt{ padding-left:10px;zoom:1;}
+.m-tabs .tabs-opt:after,.m-tabs .tabs-opt:before{ display:block; visibility:hidden; height:0; clear:both; content:'';}
+.m-tabs .tabs-opt li{ float:left; margin-right:10px; border:1px solid #eee; border-bottom:0 none; height:39px; line-height:39px; text-align:center; padding:0 15px; color:#606060; font-size:14px; cursor:pointer;}
+.m-tabs .tabs-opt li a{ color:#606060;}
+.m-tabs .tabs-opt li a:hover{ text-decoration:none; color:#404040;}
+.m-tabs .tabs-opt li.active{ border:1px solid #ccc; border-bottom:2px solid #fff; position:relative; margin-bottom:-2px; font-weight:bold;}
+
 /* 小tips */
 .m-tips{ background:#fafafa; padding:10px; margin-bottom:10px;}
 .m-tips .search-order a{ display:inline-block; vertical-align:middle; height:26px; line-height:26px; background:#fff; border:1px solid #ccc; padding:0 10px; margin-right:5px; margin-top:-1px; margin-bottom:-1px; color:#909090; }
@@ -348,6 +357,11 @@ i,em{ font-style:normal}
 .m-modal-showBtn .modal-header .title{ font-size: 15px; overflow:hidden; word-wrap:normal;white-space:nowrap; text-overflow:ellipsis;}
 .m-modal-showBtn .modal-header .remove{ cursor:pointer; font-size: 14px; float: right; padding-top: 5px;}
 .m-modal-showBtn .showBtn{ padding: 5px 0;}
+/* 中间图片 */
+.modal-content .modal-pic{ overflow: hidden; text-align: center;}
+.modal-content .modal-pic .pic{ display: inline-block; width: 140px; height: 140px; border-radius: 100%; border: 4px solid #e5e1e1; position: relative;}
+.modal-content .modal-pic .pic img{ display: inline-block; vertical-align: top; width: 100%; height: 100%; border-radius: 100%;}
+.modal-content .modal-pic .pic .icon{ position: absolute; bottom: 5px; right: 0px; font-size: 16px; width: 25px; height: 25px; line-height: 25px; background: #fff; border: 4px solid #e5e1e1; text-align: center; color: #d6d5d5; border-radius: 100%; cursor: pointer;}
 /* 100%按钮 */
 .modal-content .modal-btn1{ display: block; width: 100%; background-color: #1976d2; color: #fff; text-align: center; font-size: 14px; cursor: pointer; border-radius: 3px; height: 40px;  line-height: 40px; text-decoration: none; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; border: 0 none;}
 .modal-content .modal-btn1:hover{ background-color: #1065b9}

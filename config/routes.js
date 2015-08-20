@@ -33,6 +33,10 @@ module.exports = function(app){
     //首页
     router.get('/',index.index);
     
+    //会员相关
+    router.get('/member/getinfo',member.getinfo);
+    router.post('/member/account',member.account_post);
+    
     //注册登陆
     router.get('/register',member.register);
     router.post('/register',member.register_post);

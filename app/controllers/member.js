@@ -2,6 +2,7 @@ var parse=require('co-body');
 var template=require('../../config/template');
 var member=require('../models/member');
 var tools=require('../common/tools');
+var _=require('underscore');
 
 exports.register=function *(next){
     this.body=template('register',{});
@@ -54,10 +55,20 @@ exports.login_post=function *(next){
 
 exports.getinfo=function *(next){
     if(this.session.user){
-        this.body=tools.success(this.session.user);
+        var _member=yield member.findById(this.session.user._id);
+        this.body=tools.success(_member);
     }else{
         this.body=tools.error('请先登陆');
     }
+}
+
+exports.account_post=function *(next){
+    var body=yield parse(this);
+    if(!this.session.user)return this.body=tools.error('请先登录');
+    var _member=yield member.findById(this.session.user._id);
+    _.extend(_member,body);
+    yield _member.save();
+    this.body=tools.success('保存成功');
 }
 
 exports.logout=function *(next){

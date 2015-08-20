@@ -614,7 +614,7 @@ define('tools',function(require,exports,module){
 		require.async(['fnDialog'],function(dialog){
 			var defaults={
 				target:'[data-upload]',
-				contain:'',
+				contain:document,
 				before:'',
 				success:'',
 				size:1,
@@ -641,10 +641,8 @@ define('tools',function(require,exports,module){
 						callback:function(ret){
 							if($.type(opts.success)=='function'){opts.success(ret,_this)}
 							else{
-								var parent;
-								if(opts.contain!=''){parent=$(_this).closest(opts.contain);}
-								else{parent=$(_this).parent();}
-								var val=$('[data-upload-val]',parent);
+								var parent=$(_this).closest(opts.contain);
+								var val=$('.j-upload-val',parent);
 								$.each(val,function(i,n){
 									var _this=$(n);
 									var tag=n.nodeName.toLowerCase();

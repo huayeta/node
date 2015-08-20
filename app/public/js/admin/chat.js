@@ -7,6 +7,8 @@ seajs.use(['jquery','modal','validForm','template','tools'],function($,modal,val
     var $chatCon=$('.j-chat-con');
     var $topicAdd=$('.j-topic-add');
     var $user=$('.j-user');
+    //上传图片
+    tools.upload();
     //切换团队按钮
     $team.click(function(){
         window.location.href='/team';
@@ -25,17 +27,38 @@ seajs.use(['jquery','modal','validForm','template','tools'],function($,modal,val
     });
     //点击会员信息
     $user.click(function(){
-        new modal().showBtn({
-            title:false,
-            target:this,
-            buttons:[
-                {text:'个人设置',icon:'icon-cog',click:function(){
-                    
-                }},
-                {text:'退出账户',icon:'icon-off',click:function(){
-                    window.location.href='/logout'
-                }}
-            ]
+        var _this=this;
+        validForm.request({
+            url:'/member/getinfo',
+            success:function(ret){
+                if(!ret.status)return new modal().tips({content:ret.info});
+                new modal().showBtn({
+                    title:false,
+                    target:_this,
+                    offset:{left:-20},
+                    buttons:[
+                        {text:'个人设置',icon:'icon-cog',click:function(){
+                            var memberModal=new modal().alert({
+                                title:'个人设置',
+                                content:function(){
+                                    return template('user',ret.info);
+                                }
+                            })
+                            validForm.form({
+                                target:memberModal.boundingBox.find('form')[0],
+                                url:'/member/account',
+                                success:function(ret){
+                                    new modal().tips({content:ret.info});
+                                    if(ret.status)memberModal.destroy();
+                                }
+                            });
+                        }},
+                        {text:'退出账户',icon:'icon-off',click:function(){
+                            window.location.href='/logout'
+                        }}
+                    ]
+                });
+            }
         });
     });
     //邀请会员
