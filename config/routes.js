@@ -29,6 +29,7 @@ module.exports = function(app){
     var adminArticle=require('../app/controllers/adminArticle');
     var adminWechat=require('../app/controllers/adminWechat');
     var memberTeam=require('../app/controllers/memberTeam');
+    var weixiu=require('../app/controllers/weixiu');
     
     //首页
     router.get('/',index.index);
@@ -93,6 +94,9 @@ module.exports = function(app){
     router.get('/team/topic/del',user.userRequired,memberTeam.topic_del);
     router.get('/team/infos',user.userRequired,memberTeam.infos);
 //    router.get('/member/team/topic/list',user.userRequired,memberTeam.topic_list);
+    
+    //微秀
+    router.get('/weixiu',weixiu.index);
     
     app.use(router.routes());
 };
