@@ -4,6 +4,33 @@
     <meta charset="UTF-8">
     <title>微秀</title>
     <link rel="stylesheet" href="/style/weixiu.css">
+    <script type="text/javascript">
+        function supportCss3(style) { 
+            var prefix = ['webkit', 'Moz', 'ms', 'o'], 
+            i, 
+            humpString = [], 
+            htmlStyle = document.documentElement.style, 
+            _toHumb = function (string) { 
+                return string.replace(/-(\w)/g, function ($0, $1) { 
+                    return $1.toUpperCase(); 
+                }); 
+            }; 
+
+            for (i in prefix){
+                humpString.push(_toHumb(prefix[i] + '-' + style)); 
+                humpString.push(_toHumb(style)); 
+            }
+
+            for (i in humpString){
+                if (humpString[i] in htmlStyle) return true;
+            }
+
+            return false; 
+        }
+        if(!supportCss3('animation')){
+            window.location.href='/weixiu/support';
+        }
+    </script>
 </head>
 <body style=" background-image: url('../images/weixiu/bg.jpg')">
     <div class="g-weixiu-con">
@@ -55,7 +82,7 @@
             <div class="top"></div>
             <div class="con">
                 <div class="tt">情侣勿入，单身狗过七夕</div>
-                <iframe height="485" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+                <iframe height="485" width="100%" frameborder="0" scrolling="no" allowtransparency="true" src="/weixiu/show" id="swiperIframe"></iframe>
             </div>
             <div class="bottom"></div>
         </div>
@@ -70,6 +97,15 @@
 <script type="text/javascript">
 seajs.use(['jquery','box'],function($,box){
     box.slide({contain:".m-group",mainCell:".bd ul",effect:"topLoop",pnLoop:false,autoPlay:false,vis:4});
-
+    var swiperIframe=$('#swiperIframe');
+    swiperIframe.load(function(){
+        var mySwiper=$(this)[0].contentWindow.mySwiper;
+        $('.prev-btn').click(function(){
+            mySwiper.slidePrev();
+        });
+        $('.next-btn').click(function(){
+            mySwiper.slideNext();
+        });
+    });
 });
 </script>

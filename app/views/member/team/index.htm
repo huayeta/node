@@ -130,35 +130,39 @@
             <span>从团队中添加成员</span>
         </div>
         <div class="tabs-con f-pd20">
-            <div class="m-chat-members">
-                <div class="search f-mb10"><input type="text" class="u-txt" placeholder="添加或邀请成员" /><i class="btn">邀请</i></div>
-                <ul class="list">
-                   <<each topic.members as v>>
-                    <li>
-                        <<if v._id!=topic.owner>><a class="u-btn-yellow f-fr btn">删除成员</a><</if>>
-                        <div class="pic"><img src="<<if avatar>><<avatar>><<else>>/images/common/avatar.jpg<</if>>" /></div>
-                        <div class="info">
-                            <div class="tt"><<v.account>><<if v._id=='<% user._id %>'>>(我)<</if>></div>
-                            <div class="des"><<if v._id==topic.owner>>话题创造者<<else>>成员<</if>></div>
-                        </div>
-                    </li>
-                    <</each>>
-                </ul>
+            <div>
+                <div class="modal-search f-mb10"><input type="text" class="u-txt" placeholder="添加或邀请成员" /><i class="btn">邀请</i></div>
+                <div class="m-chat-members">
+                    <ul class="list">
+                       <<each topic.members as v>>
+                        <li>
+                            <<if v._id!=topic.owner>><a class="u-btn-yellow f-fr btn">删除成员</a><</if>>
+                            <div class="pic"><img src="<<if avatar>><<avatar>><<else>>/images/common/avatar.jpg<</if>>" /></div>
+                            <div class="info">
+                                <div class="tt"><<v.account>><<if v._id=='<% user._id %>'>>(我)<</if>></div>
+                                <div class="des"><<if v._id==topic.owner>>话题创造者<<else>>成员<</if>></div>
+                            </div>
+                        </li>
+                        <</each>>
+                    </ul>
+                </div>
             </div>
-            <div class="m-chat-members">
-                <div class="search f-mb10"><input type="text" class="u-txt" placeholder="搜索成员" /></div>
-                <ul class="list">
-                   <<each team.members as v>>
-                    <li>
-                        <<if v.isTopic>><a class="f-fr btn gray">已加入</a><<else>><a class="u-btn f-fr btn">邀请会员</a><</if>>
-                        <div class="pic"><img src="<<if avatar>><<avatar>><<else>>/images/common/avatar.jpg<</if>>" /></div>
-                        <div class="info">
-                            <div class="tt"><<v.account>><<if v._id=='<% user._id %>'>>(我)<</if>></div>
-                            <div class="des"><<if v._id==topic.owner>>话题创造者<<else>>成员<</if>></div>
-                        </div>
-                    </li>
-                    <</each>>
-                </ul>
+            <div>
+                <div class="modal-search f-mb10"><input type="text" class="u-txt" placeholder="搜索成员" /></div>
+                <div class="m-chat-members">
+                    <ul class="list">
+                       <<each team.members as v>>
+                        <li>
+                            <<if v.isTopic>><a class="f-fr btn gray">已加入</a><<else>><a class="u-btn f-fr btn">邀请会员</a><</if>>
+                            <div class="pic"><img src="<<if avatar>><<avatar>><<else>>/images/common/avatar.jpg<</if>>" /></div>
+                            <div class="info">
+                                <div class="tt"><<v.account>><<if v._id=='<% user._id %>'>>(我)<</if>></div>
+                                <div class="des"><<if v._id==topic.owner>>话题创造者<<else>>成员<</if>></div>
+                            </div>
+                        </li>
+                        <</each>>
+                    </ul>
+                </div>
             </div>
         </div>
     </script>
@@ -176,6 +180,53 @@
         </div>
         <input type="submit" class="modal-btn1" value="保存" />
         </form>
+    </script>
+    <script type="text/html" id="team">
+        <div class="modal-tabs-opt tabs-opt">
+           <span class="active">基本信息</span>
+           <span>团队成员</span>
+           <span>高级设置</span>
+        </div>
+        <div class="tabs-con f-pd20">
+            <form class="f-validForm-dn">
+                <input type="hidden" name="id" class="avatar" value="<<_id>>" />
+                <div class="modal-form-group f-mb15">
+                    <div class="tt">团队名称</div>
+                    <div class="des">
+                        <input type="text" class="u-txt" name="nickname" datatype="*" value="<<name>>">
+                    </div>
+                </div>
+                <input type="submit" class="modal-btn1" value="保存" />
+            </form>
+            <div>
+                <div class="modal-form-group f-mb15">
+                    <div class="tt">通过邮箱邀请</div>
+                    <div class="des">
+                        <div class="modal-search f-mb15"><input type="text" class="u-txt" placeholder="通过邮箱邀请" /><i class="btn">邀请</i></div>
+                    </div>
+                </div>
+                <div class="m-chat-members">
+                    <ul class="list">
+                       <<each members as v>>
+                        <li>
+                            <div class="pic"><img src="<<if avatar>><<avatar>><<else>>/images/common/avatar.jpg<</if>>" /></div>
+                            <div class="info">
+                                <div class="tt"><<v.account>><<if v._id=='<% user._id %>'>>(我)<</if>></div>
+                                <div class="des"><<if v._id==owner>>话题创造者<<else>>成员<</if>></div>
+                            </div>
+                        </li>
+                        <</each>>
+                    </ul>
+                </div>
+            </div>
+            <div>
+               <div class="modal-form-group f-mb15">
+                   <div class="tt">退出团队</div>
+                   <div class="des">一旦你退出了该团队，你将不能查看任何该团队的聊天记录。退出团队后，如果想重新加入，请联系团队管理员。</div>
+               </div>
+               <a href="" class="modal-btn1">退出团队</a>
+            </div>
+        </div>       
     </script>
 </body>
 </html>

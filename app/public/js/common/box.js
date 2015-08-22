@@ -1074,17 +1074,33 @@ define('box',function(require, exports, module){
         return str?str:'';
     }
 
-    /*
-    * 常用功能函数
+    /** 
+    * 判断浏览器是否支持某一个CSS3属性 
+    * @param {String} 属性名称 
+    * @return {Boolean} true/false 
     */
-    window.yst={};
-    //在线充值
-    window.yst.recharge=function(){
-    	gotoMember({title:'我的资产',url:'?m=financial&c=recharge'});
-    }
-    //卡包
-    window.yst.cardBinding=function(){
-    	gotoMember({title:'我的资产',url:'?m=financial&c=card&a=index'});
+
+    function supportCss3(style) { 
+        var prefix = ['webkit', 'Moz', 'ms', 'o'], 
+        i, 
+        humpString = [], 
+        htmlStyle = document.documentElement.style, 
+        _toHumb = function (string) { 
+            return string.replace(/-(\w)/g, function ($0, $1) { 
+                return $1.toUpperCase(); 
+            }); 
+        }; 
+
+        for (i in prefix){
+            humpString.push(_toHumb(prefix[i] + '-' + style)); 
+            humpString.push(_toHumb(style)); 
+        }
+
+        for (i in humpString){
+            if (humpString[i] in htmlStyle) return true;
+        }
+
+        return false; 
     }
     	
 	module.exports={
@@ -1112,6 +1128,7 @@ define('box',function(require, exports, module){
         gotoMember:gotoMember,//往会员中心跳转
         goMember:goMember,//点击往会员中心跳转
         countdown:countdown,//团购时间
-        loadCss:loadCss//判断css是否加载了，然后加载
+        loadCss:loadCss,//判断css是否加载了，然后加载
+        supportCss3:supportCss3
 	}
 })

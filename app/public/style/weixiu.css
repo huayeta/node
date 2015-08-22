@@ -10,9 +10,11 @@ body{ background-repeat: no-repeat; background-size: cover; background-position:
 .m-phone_panel .top{ background: url('../images/weixiu/yulan_phone_top.png') center center no-repeat; height: 45px;}
 .m-phone_panel .bottom{ background: url('../images/weixiu/yulan_phone_bottom.png') center center no-repeat; height: 45px;}
 .m-phone_panel .tt{ font-size: 24px; color: #fff; background: #000; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.m-phone_panel iframe{ margin: 0; padding: 0; border: 0; background: #fff;}
+.m-phone_panel .con{height: 519px;}
 /* 上一页下一页按钮 */
 .m-phone-btn{ float: left; padding-top: 110px; width: 30px;}
-.m-phone-btn .btn{ display: inline-block; text-decoration: none; cursor: pointer; width: 20px; height: 70px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; background: #2096f9; font-size: 12px; color: #fff; padding: 20px 8px 0; text-align: center; border: 1px solid #2096f9; margin-bottom: 40px;}
+.m-phone-btn .btn{ display: inline-block; text-decoration: none; cursor: pointer; width: 20px; height: 70px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; background: #2096f9; font-size: 12px; color: #fff; padding: 20px 8px 0; text-align: center; border: 1px solid #2096f9; margin-bottom: 40px; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
 .m-phone-btn .btn:hover{ background: #fff; color: #2096f9;}
 /* 二维码 */
 .m-code{ float: right; color: #fff; position: absolute; right: 0; top: 50%; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%);}
@@ -28,7 +30,7 @@ body{ background-repeat: no-repeat; background-size: cover; background-position:
 .m-group li .pic{ width: 100px; height: 100px; display: block; opacity: .8; cursor: pointer;}
 .m-group li .pic:hover{ opacity: 1;}
 .m-group li .pic img{ display: inline-block; vertical-align: top; width: 100%;}
-.m-group li .tt{ text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; line-height: 26px;}
+.m-group li .tt{ text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; line-height: 26px;color: #fff; text-shadow: 1px 1px 0px rgba(0,0,0,.5);}
 .m-group .btn-group{}
 .m-group .btn-group .btn{ position: absolute; left: 50%; margin-left: -15px; -webkit-transform: translateX(-50%); -ms-transform: translateX(-50%); transform: translateX(-50%); display: inline-block; width: 32px; height: 40px; background: url('../images/weixiu/slider-arrow.png') -110px 5px no-repeat; opacity: .5; cursor: pointer;}
 .m-group .btn-group .btn:hover{ opacity:1;}
@@ -50,3 +52,14 @@ body{ background-repeat: no-repeat; background-size: cover; background-position:
     50%{ margin-left: 0;}
     100%{ margin-left: 10px;}
 }
+
+/* weixiu_support */
+.m-support-mask{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #f0f0f0; z-index: -1;}
+.m-support{ margin: 100px auto 0; width: 765px; padding: 30px; background-color: #fff; font-size: 16px; border-radius: 20px; box-shadow: 0 0 10px 1px #efefef; font-family: "Microsoft YaHei",Tahoma,Helvetica,Arial,sans-serif;}
+.m-support .pic{ float: left; margin-top: 20px; margin-right: 35px;}
+.m-support .info{ overflow: hidden; font-size: 16px; padding-top: 10px; font-weight: 400; color: #666;}
+.m-support .info .list{ margin-top: 35px;}
+.m-support .info .list ul{ margin-right: -35px;}
+.m-support .info .list li{ float: left; margin-right: 35px; text-align: center; width: 75px;}
+.m-support .info .list li a{ text-decoration: none; display: block; font-size: 14px;}
+.m-support .info .list li img{ display: inline-block; margin-bottom: 5px;}

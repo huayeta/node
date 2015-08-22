@@ -24,6 +24,7 @@
 seajs.use(['jquery','modal','validForm'],function($,modal,validForm){
     var $teamAdd=$('.j-team-add');
     var $teamList=$('.j-team-list');
+    //添加团队
     $teamAdd.click(function(){
         var $modal=new modal().alert({
             title:'添加团队',

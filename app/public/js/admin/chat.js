@@ -7,11 +7,35 @@ seajs.use(['jquery','modal','validForm','template','tools'],function($,modal,val
     var $chatCon=$('.j-chat-con');
     var $topicAdd=$('.j-topic-add');
     var $user=$('.j-user');
+    var teamId=tools.getCurParams('id');
     //上传图片
     tools.upload();
     //切换团队按钮
     $team.click(function(){
-        window.location.href='/team';
+        var _this=$(this);
+        new modal().showBtn({
+            title:'团队菜单',
+            offset:{top:-20},
+            target:_this[0],
+            buttons:[
+                {text:'团队设置',icon:'icon-pencil',click:function(){
+                    validForm.request({
+                        url:'/team/add?members=1&id='+teamId,
+                        success:function(ret){
+                            if(!ret.status)return new modal().tips({content:ret.info});
+                            var _modal=new modal().alert({
+                                title:'团队设置',
+                                padding:0,
+                                content:function(){
+                                    return template('team',ret.info);
+                                }
+                            });
+                            tools.tabs();
+                        }
+                    });
+                }}
+            ]
+        });
     });
     //初始化点击按钮
     $topicList.delegate('.item-icon','click',function(){

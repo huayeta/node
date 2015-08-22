@@ -87,6 +87,7 @@ module.exports = function(app){
     //前台会员中心
     router.get('/team',user.userRequired,memberTeam.team);
     router.get('/team/list',user.userRequired,memberTeam.team_list);
+    router.get('/team/add',user.userRequired,memberTeam.team_add);
     router.post('/team/add',user.userRequired,memberTeam.team_add_post);
 //    router.get('/member/team',user.userRequired,memberTeam.chat);
     router.get('/team/topic/add',user.userRequired,memberTeam.topic_add);
@@ -97,6 +98,8 @@ module.exports = function(app){
     
     //微秀
     router.get('/weixiu',weixiu.index);
+    router.get('/weixiu/support',weixiu.support);
+    router.get('/weixiu/show',weixiu.show);
     
     app.use(router.routes());
 };

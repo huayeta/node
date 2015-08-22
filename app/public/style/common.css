@@ -372,8 +372,8 @@ i,em{ font-style:normal}
 .modal-content .model-btn.danger{ background: #ff7043; color: #fff;}
 .modal-content .model-btn.danger:hover{ background: #ff5d2a;}
 /* tabs */
-.modal-content .modal-tabs-opt{ overflow: hidden;}
-.modal-content .modal-tabs-opt>*{ float: left; width: 50%; padding: 6px 0; font-size: 15px; color: #a6a6a6; text-align: center; cursor: pointer; overflow: hidden; line-height: 26px; text-overflow: ellipsis; background: #ededed;}
+.modal-content .modal-tabs-opt{ display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex;}
+.modal-content .modal-tabs-opt>*{ -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; padding: 6px 0; font-size: 15px; color: #a6a6a6; text-align: center; cursor: pointer; overflow: hidden; line-height: 26px; text-overflow: ellipsis; background: #ededed;}
 .modal-content .modal-tabs-opt>*.active{ background: #fff; color: #383838;}
 /* form-group */
 .modal-content .modal-form-group .tt{ margin-bottom: 5px; font-weight: 700;}
@@ -386,3 +386,7 @@ i,em{ font-style:normal}
 .modal-content .item-menu .icon{ float: left; vertical-align: middle; line-height: 30px;}
 .modal-content .item-menu .tt{ margin-left: 15px; overflow: hidden;text-overflow: ellipsis; white-space: nowrap;}
 .modal-content .hr{ height: 1px; background: #eee; width: 100%; margin: 5px 0;}
+/* item-menu */
+.modal-content .modal-search{ position: relative;}
+.modal-content .modal-search input{ width: 100%; padding-right: 50px;}
+.modal-content .modal-search .btn{ position: absolute; top: 50%; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); color: #1976d2; right: 10px;}

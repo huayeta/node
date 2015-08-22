@@ -36,11 +36,24 @@ exports.infos=function *(next){
     this.body=tools.success(infos);
 }
 
-//团队添加
+//团队列表
 exports.team_list=function *(next){
     var infos={};
     infos.infos=yield memberTeam.fetch(this);
     this.body=yield this.render('member/team/list',infos)
+}
+
+//团队添加
+exports.team_add=function *(next){
+    if(this.query.id){
+        if(this.query.members==1){
+            var team=yield memberTeam.findById(this.query.id).populate('members');
+        }else{
+            var team=yield memberTeam.findById(this.query.id);
+        }
+        if(!team)return this.body=tools.error('没有该团队');
+        return this.body=tools.success(team);
+    }
 }
 
 exports.team_add_post=function *(next){
