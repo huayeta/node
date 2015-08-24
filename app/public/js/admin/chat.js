@@ -1,4 +1,4 @@
-seajs.use(['jquery','modal','validForm','template','tools'],function($,modal,validForm,template,tools){
+seajs.use(['jquery','modal','validForm','template','tools','handler'],function($,modal,validForm,template,tools,handler){
     template.config('openTag','<<');
     template.config('closeTag','>>');
     
@@ -8,21 +8,46 @@ seajs.use(['jquery','modal','validForm','template','tools'],function($,modal,val
     var $topicAdd=$('.j-topic-add');
     var $user=$('.j-user');
     var teamId=tools.getCurParams('id');
+    var USER;
+    //同步获取会员信息
+    validForm.request({
+        url:'/member/getinfo',
+        async:false,
+        success:function(ret){
+            if(ret.status)USER=ret.info;
+        }
+    })
+    //信息监控中心
+    var _handler=new handler();
+    //团队改变的时候
+    _handler.on('modifyTeam',function(ret){
+        ret && $team.find('.name').text(ret.name);
+    })
+    //会员信息改变的时候
+    _handler.on('modifyMember',function(ret){
+        if(ret){
+            var $parent=$user.closest('.m-chat-user');
+            var $avatar=$parent.find('.avatar');
+            var $nickname=$parent.find('.nickname');
+            $avatar.attr('src',(ret.avatar?ret.avatar:'/images/common/avatar.jpg'));
+            $nickname.text(ret.nickname);
+        }
+    })
     //上传图片
     tools.upload();
     //切换团队按钮
     $team.click(function(){
         var _this=$(this);
-        new modal().showBtn({
-            title:'团队菜单',
-            offset:{top:-20},
-            target:_this[0],
-            buttons:[
-                {text:'团队设置',icon:'icon-pencil',click:function(){
-                    validForm.request({
-                        url:'/team/add?members=1&id='+teamId,
-                        success:function(ret){
-                            if(!ret.status)return new modal().tips({content:ret.info});
+        validForm.request({
+            url:'/team/add?members=1&id='+teamId,
+            success:function(ret){
+                if(!ret.status)return new modal().tips({content:ret.info});
+                new modal().showBtn({
+                    title:'团队菜单',
+                    offset:{top:-20},
+                    target:_this[0],
+                    buttons:[
+                        {text:'团队设置',icon:'icon-pencil',before:function(){return USER._id==ret.info.owner},click:function(){
                             var _modal=new modal().alert({
                                 title:'团队设置',
                                 padding:0,
@@ -31,10 +56,31 @@ seajs.use(['jquery','modal','validForm','template','tools'],function($,modal,val
                                 }
                             });
                             tools.tabs();
-                        }
-                    });
-                }}
-            ]
+                            validForm.form({
+                                target:_modal.boundingBox.find('form')[0],
+                                url:'/team/add',
+                                success:function(re){
+                                    if(!re.status)return new modal().tips({content:re.info});
+                                    new modal().tips({content:'保存成功!'});
+                                    _modal.destroy();
+                                    _handler.fire('modifyTeam',re.info);
+                                }
+                            });
+                            //退出团队
+                            _modal.boundingBox.find('.j-del').click(function(){
+                                validForm.request({
+                                    url:'/team/del?id='+teamId,
+                                    success:function(re){
+                                       if(!ret.status)return new modal().tips({content:ret.info});
+                                        new modal().tips({content:'退出成功！'});
+                                        window.location.reload();
+                                    }
+                                })
+                            });
+                        }}
+                    ]
+                });
+            }
         });
     });
     //初始化点击按钮
@@ -72,8 +118,10 @@ seajs.use(['jquery','modal','validForm','template','tools'],function($,modal,val
                                 target:memberModal.boundingBox.find('form')[0],
                                 url:'/member/account',
                                 success:function(ret){
-                                    new modal().tips({content:ret.info});
-                                    if(ret.status)memberModal.destroy();
+                                    if(!ret.status)return new modal().tips({content:ret.info});
+                                    new modal().tips({content:'保存成功！'});
+                                    memberModal.destroy();
+                                    _handler.fire('modifyMember',ret.info);
                                 }
                             });
                         }},

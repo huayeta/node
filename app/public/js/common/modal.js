@@ -29,8 +29,9 @@ define('modal', function (require, exports, module) {
                     this.boundingBox=$('<div class="m-modal-showBtn">'+(this.config.title?'<div class="modal-header"><span class="remove icon-remove"></span><span class="title">'+this.config.title+'</span></div>':'')+'<div class="modal-content showBtn"></div></div>');
                     if(this.config.buttons && Array.isArray(this.config.buttons)){
                         var tpl='';
-                        this.config.buttons.forEach(function(n){
-                            tpl+='<div class="item-menu"><i class="icon '+n.icon+'"></i><span class="tt">'+n.text+'</span></div>';
+                        this.config.buttons.forEach(function(n,index){
+                            if(n.before && $.isFunction(n.before) && n.before()===false){return;};
+                            tpl+='<div class="item-menu" data-index="'+index+'"><i class="icon '+n.icon+'"></i><span class="tt">'+n.text+'</span></div>';
                              n.hr && (tpl+='<div class="hr"></div>');
                         });
                         this.boundingBox.find('.showBtn').html(tpl);
@@ -74,7 +75,7 @@ define('modal', function (require, exports, module) {
                     _this.boundingBox.delegate('.modal-header .remove','click',_this.close);
                     _this.boundingBox.delegate('.item-menu','click',function(){
                         var $this=$(this);
-                        var index=$this.index();
+                        var index=$this.data('index');
                         _this.config.buttons && Array.isArray(_this.config.buttons) && _this.config.buttons[index].click && _this.config.buttons[index].click();
                         _this.close();
                     })
@@ -142,6 +143,11 @@ define('modal', function (require, exports, module) {
         },
         showBtn:function(cfg){
             $.extend(true,this.config,{offset:{left:0,top:0}},cfg,{type:'showBtn',isMask:'default'});
+            this.render();
+            return this;
+        },
+        confirm:function(cfg){
+            $.extend(true,this.config,{offset:{left:0,top:0}},cfg,{type:'confirm',isMask:'default'});
             this.render();
             return this;
         }

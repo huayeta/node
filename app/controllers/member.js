@@ -67,8 +67,8 @@ exports.account_post=function *(next){
     if(!this.session.user)return this.body=tools.error('请先登录');
     var _member=yield member.findById(this.session.user._id);
     _.extend(_member,body);
-    yield _member.save();
-    this.body=tools.success('保存成功');
+    var _new=yield _member.save();
+    this.body=tools.success(_new);
 }
 
 exports.logout=function *(next){

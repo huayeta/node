@@ -59,16 +59,47 @@ exports.team_add=function *(next){
 exports.team_add_post=function *(next){
     var body= yield parse(this);
     if(!body.name)return this.body=tools.error('名称不能为空');
-    var _memberTeam=yield memberTeam.findByName(this,body.name);
-    if(_memberTeam)return this.body=tools.error('不能添加重复的团队');
-    var _newMemberTeam=new memberTeam(_.extend({owner:this.session.user._id},body));
-    _newMemberTeam.isNew=true;
-    _newMemberTeam.members.push(this.session.user._id);//把自己添加到团队里面
-    var _new=yield _newMemberTeam.save();
-    //建立公告板
-    var _memberTopic=new memberTopic({name:'公告板',owner:this.session.user._id,members:[this.session.user._id],team:_new._id,isdel:false,isNew:true});
-    yield _memberTopic.save();
-    this.body=tools.success(_new);
+    if(!body.id){
+        var _memberTeam=yield memberTeam.findByName(this,body.name);
+        if(_memberTeam)return this.body=tools.error('不能添加重复的团队');
+        var _newMemberTeam=new memberTeam(_.extend({owner:this.session.user._id},body));
+        _newMemberTeam.isNew=true;
+        _newMemberTeam.members.push(this.session.user._id);//把自己添加到团队里面
+        var _new=yield _newMemberTeam.save();
+        //建立公告板
+        var _memberTopic=new memberTopic({name:'公告板',owner:this.session.user._id,members:[this.session.user._id],team:_new._id,isdel:false,isNew:true});
+        yield _memberTopic.save();
+        this.body=tools.success(_new);
+    }else{
+        if(yield memberTeam.findOne({owner:this.session.user._id,name:body.name,_id:{'$ne':body.id}}))return this.body=tools.error('该团队已经存在');
+        var _memberTeam=yield memberTeam.findById(body.id);
+        if(!_memberTeam)return this.body=tools.error('该团队不存在');
+        //不是自己的团队
+        if(_memberTeam.owner!=this.session.user._id)return this.body=tools.error('参数错误');
+        _.extend(_memberTeam,body);
+        var _new=yield _memberTeam.save();
+        this.body=tools.success(_new);
+    }
+}
+
+//退出团队
+exports.team_del=function *(next){
+    var id=this.query.id;
+    if(!id)return this.body=tools.error('参数错误');
+    var _memberTeam=yield memberTeam.findById(id);
+    if(!_memberTeam)return this.body=tools.error('参数错误');
+    if(_memberTeam.owner!=this.session.user._id){
+        //退出团队
+        yield _memberTeam.update({_id:id},{'$pull':{'members':id}});
+        return this.body=tools.success('退出成功');
+    }else{
+        //删除团队
+        var _memberTeam=yield memberTeam.remove({owner:this.session.user._id,_id:id});
+        if(!_memberTeam.result.ok)return this.body=tools.error('参数错误');
+        //删除相关话题
+        yield memberTopic.remove({team:id});
+        return this.body=tools.success('删除成功!');
+    }
 }
 
 //话题添加

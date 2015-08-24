@@ -8,7 +8,7 @@
 <body>
     <div class="g-chat-left">
         <div class="m-chat-room">
-            <div class="title"><span class="j-team"><span class="f-toe"><% team.name %></span><i class="icon-angle-down"></i></span></div>
+            <div class="title"><span class="j-team"><span class="f-toe name"><% team.name %></span><i class="icon-angle-down"></i></span></div>
         </div>
         <div class="m-chat-member">
             <div class="item-tt"><div class="f-fr icon j-topic-add"><i class="icon-plus-sign"></i></div><div class="title"><h2 class="f-toe">话题列表</h2></div></div>
@@ -28,8 +28,8 @@
         <div class="m-chat-user">
             <div class="inner">
                 <div class="f-fr icon j-user"><i class="icon-chevron-up"></i></div>
-                <div class="f-fl pic"><img src="<% user.avatar %>" /></div>
-                <div class="title"><h2 class="f-toe"><% user.nickname %></h2></div>
+                <div class="f-fl pic"><img class="avatar" src="<% user.avatar %>" /></div>
+                <div class="title"><h2 class="f-toe nickname"><% user.nickname %></h2></div>
             </div>
         </div>
     </div>
@@ -189,11 +189,11 @@
         </div>
         <div class="tabs-con f-pd20">
             <form class="f-validForm-dn">
-                <input type="hidden" name="id" class="avatar" value="<<_id>>" />
+                <input type="hidden" name="id" value="<<_id>>" />
                 <div class="modal-form-group f-mb15">
                     <div class="tt">团队名称</div>
                     <div class="des">
-                        <input type="text" class="u-txt" name="nickname" datatype="*" value="<<name>>">
+                        <input type="text" class="u-txt" name="name" datatype="*" value="<<name>>">
                     </div>
                 </div>
                 <input type="submit" class="modal-btn1" value="保存" />
@@ -220,14 +220,27 @@
                 </div>
             </div>
             <div>
-               <div class="modal-form-group f-mb15">
-                   <div class="tt">退出团队</div>
-                   <div class="des">一旦你退出了该团队，你将不能查看任何该团队的聊天记录。退出团队后，如果想重新加入，请联系团队管理员。</div>
-               </div>
-               <a href="" class="modal-btn1">退出团队</a>
+               <<if owner!='<% user._id %>'>>
+                   <div class="modal-form-group f-mb15">
+                       <div class="tt">退出团队</div>
+                       <div class="des">一旦你退出了该团队，你将不能查看任何该团队的聊天记录。退出团队后，如果想重新加入，请联系团队管理员。</div>
+                   </div>
+                   <a href="javascript:void(0);" class="modal-btn1 j-del">退出团队</a>
+               <<else>>
+                   <div class="modal-form-group f-mb15">
+                       <div class="tt">删除团队</div>
+                       <div class="des">一旦你删除了该团队，将删除该团队的所有内容，不可恢复，请谨慎操作。</div>
+                   </div>
+                   <a href="javascript:void(0);" class="modal-btn1 j-del">删除团队</a>
+                <</if>>
             </div>
         </div>       
     </script>
+    <div class="m-modal-mask"></div>
+    <div class="m-modal-con" style="width:390px;">
+        <div class="modal-content">一旦你删除了该团队一旦你删除了该团队一旦你删除了该团队一旦你删除了该团队一旦你删除了该团队一旦你删除了该团队一旦你删除了该团队一旦你删除了该团队一旦你删除了该团队一旦你删除了该团队一旦你删除了该团队一旦你删除了该团队</div>
+        <div class="modal-footer"><a>确认</a><a>删除</a></div>
+    </div>
 </body>
 </html>
 <script type="text/javascript" src="/js/sea.js"></script>

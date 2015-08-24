@@ -348,6 +348,10 @@ i,em{ font-style:normal}
 .m-modal-con .modal-header .title{ font-size: 18px; color: #383838; overflow:hidden;word-wrap:normal;white-space:nowrap; text-overflow:ellipsis;}
 .m-modal-con .modal-header .remove{ cursor:pointer; font-size: 14px; float: right; padding-top: 5px;}
 .m-modal-con .modal-content{ padding: 20px;}
+.m-modal-con .modal-footer{ border-top: 1px solid #eee; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex;}
+.m-modal-con .modal-footer a{ display: inline-block; -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; text-align: center; font-size: 16px; line-height: 50px; text-decoration: none; border-right: 1px solid #eee; color: #333;}
+.m-modal-con .modal-footer a:last-child{border-right: 0;}
+.m-modal-con .modal-footer a:hover{ background: #d1d1d1;}
 .m-modal-loading{ position: fixed; top: 50%; left: 50%; z-index: 11; background: rgba(0,0,0,.6); color: #fff; border-radius: 5px; padding: 10px; width: 200px; -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); transform: translate(-50%,-50%);}
 .m-modal-loading .icon{ margin-right: 10px; display: inline-block; vertical-align: middle;}
 .m-modal-tips{ position: fixed; top: 50%; left: 50%; -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); transform: translate(-50%,-50%); z-index: 11; background: #fff; border: 1px solid #d5d5d5 ; padding: 14px 25px; font-size: 14px; color: #404040; line-height: 26px; border-radius: 3px; box-shadow: 0 0 2px 2px #eee;}
