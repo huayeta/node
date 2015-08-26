@@ -89,13 +89,23 @@
                 opacity: 0
             }
         }
-                
-        #array {
-            position: absolute;
-            z-index: 999;
-            -webkit-animation: tipmove 1.5s infinite ease-in-out;
-            left: 50%; transform: translateX(-50%);
-        }
+        /* 箭头 */
+        #array {position: absolute;z-index: 999;-webkit-animation: tipmove 1.5s infinite ease-in-out;left: 50%; transform: translateX(-50%);}
+        /* swiper01 */
+        .swiper01 h2{ position: absolute; bottom: 20px; left: 0px; right: 0px; line-height: 25px; font-size: 16px; text-align: center; background: rgba(0,0,0,.3); color: #fff; text-shadow: 1px 1px 0 #111; padding: 5px;}
+        /* swiper02 */
+        .swiper02 .con{ position: absolute; bottom: 20%; left: 10px; right: 10px; padding: 0.3em 10px 0.5em; color: #fff; background-color: rgba(0, 0, 0, 0.3);}
+        .swiper02 .con h2{ border-bottom: 1px solid #fff; display: inline-block; padding: 0 10px 10px 10px; margin-bottom: 15px;font-size: 26px;}
+        .swiper02 .con p{ line-height: 1.5; font-size: 16px;}
+        /* swiper03 */
+        .swiper03 .con{ position: absolute; bottom: 15%; left: 15px; color:#fff; border: 4px solid #fff; border-top: 0; padding: 0.3em 15px; text-align: center; max-width: 80%;}
+        .swiper03 .con::before,.swiper01 .con::after{ content: ' '; display: block; height: 4px; background: #fff; width:15px; position: absolute; top: 0; }
+        .swiper03 .con::before{left: 0;}
+        .swiper03 .con::after{right: 0;}
+        .swiper03 .con h2{ font-size: 26px; margin: 0.3em 15px; margin-top: -35px; border-bottom: 1px solid #fff;}
+        .swiper03 .con .description{ font-weight: 400; padding:5px 0 5px; font-size: 16px;}
+        /* swiper04 */
+        .swiper04 h2{ position: absolute; top: 30px; left: 0; right: 0; padding: 0 10px; font-size: 18px; text-align: center;}
     </style>
 </head>
 
@@ -103,15 +113,32 @@
     <div style="max-width:640px; margin:0 auto;">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide swiper-lazy" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg"><span class="ani" swiper-animate-effect="zoomIn" swiper-animate-duration="1.5s" swiper-animate-delay="0s">sssssssss</span>
+                <div class="swiper-slide swiper-lazy swiper01" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
+                <h2 class="ani" swiper-animate-effect="bounceInUp" swiper-animate-duration="1s" swiper-animate-delay="0s"><span>标题</span></h2>
+                </div>
+                <div class="swiper-slide swiper-lazy swiper02" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
+                    <div class="con ani" swiper-animate-effect="fadeInRight" swiper-animate-duration="1s">
+                        <h2>标题</h2>
+                        <p>描述1</p>
+                        <p>描述2</p>
+                        <p>描述3</p>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-lazy swiper03" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
+                    <div class="con ani" data-animation="fadeIn">
+                        <h2 class="ani" swiper-animate-effect="fadeInDown" swiper-animate-duration="1s">标题</h2>
+                        <div class="description ani" swiper-animate-effect="zoomIn" swiper-animate-duration="1s">
+                            <p>描述1</p>
+                            <p>描述2</p>
+                            <p>描述3</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-lazy swiper04" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
+                    <h2 class="ani" swiper-animate-effect="zoomIn">标题</h2>
                 </div>
                 <div class="swiper-slide swiper-lazy" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
-                </div>
-                <div class="swiper-slide swiper-lazy" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
-                </div>
-                <div class="swiper-slide swiper-lazy" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
-                </div>
-                <div class="swiper-slide swiper-lazy" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
+                
                 </div>
             </div>
             <!-- BGM DOM -->

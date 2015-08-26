@@ -13,6 +13,7 @@ exports.team=function *(next){
     if(!infos.user.avatar)infos.user.avatar='/member/common/avatar.jpg';
     infos.teamId=this.query.id;
     infos.team=yield memberTeam.findById(this.query.id);
+    infos.host=this.protocol+'://'+this.host;
     if(!infos.team)return this.redirect('/team/list');
     if(!tools.isJson(this)){
         this.body=yield this.render('member/team/index',infos);
@@ -40,7 +41,11 @@ exports.infos=function *(next){
 exports.team_list=function *(next){
     var infos={};
     infos.infos=yield memberTeam.fetch(this);
-    this.body=yield this.render('member/team/list',infos)
+    if(tools.isJson(this)){
+        this.body=tools.success(infos.infos);
+    }else{
+        this.body=yield this.render('member/team/list',infos);
+    }
 }
 
 //团队添加
@@ -90,7 +95,7 @@ exports.team_del=function *(next){
     if(!_memberTeam)return this.body=tools.error('参数错误');
     if(_memberTeam.owner!=this.session.user._id){
         //退出团队
-        yield _memberTeam.update({_id:id},{'$pull':{'members':id}});
+        yield _memberTeam.update({_id:id},{'$pull':{'members':this.session.user._id}});
         return this.body=tools.success('退出成功');
     }else{
         //删除团队
@@ -102,6 +107,12 @@ exports.team_del=function *(next){
     }
 }
 
+//团队邀请
+exports.team_invitation=function *(next){
+    var id=this.query.id;
+    
+}
+
 //话题添加
 exports.topic_add=function *(next){
     if(!tools.isJson(this)){
@@ -110,7 +121,6 @@ exports.topic_add=function *(next){
         if(!this.query.id)return this.body=tools.success({});
         var _memberTopic=yield memberTopic.findById(this.query.id).populate('members');
         if(!_memberTopic)return this.body=tools.error('该主题不存在');
-//        console.log(_memberTopic);
         this.body=tools.success(_memberTopic);
     }
 }
@@ -127,9 +137,10 @@ exports.topic_add_post=function *(next){
         var _new=yield _memberTopic.save();
         this.body=tools.success(_new);
     }else{
-        if(yield memberTopic.findOne({owner:this.session.user._id,name:body.name,_id:{'$ne':body.id}}))return this.body=tools.error('名字重复了');
         var _memberTopic=yield memberTopic.findById(body.id);
         if(!_memberTopic)return this.body=tools.error('该话题不存在');
+        if(_memberTopic.owner!=this.session.user._id)return this.body=tools.error('没有权限操作');
+        if(yield memberTopic.findOne({owner:this.session.user._id,name:body.name,_id:{'$ne':body.id}}))return this.body=tools.error('名字重复了');
         _.extend(_memberTopic,body);
         var _new=yield _memberTopic.save();
         this.body=tools.success(_new);

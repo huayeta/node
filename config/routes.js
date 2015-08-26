@@ -90,6 +90,7 @@ module.exports = function(app){
     router.get('/team/add',user.userRequired,memberTeam.team_add);
     router.post('/team/add',user.userRequired,memberTeam.team_add_post);
     router.get('/team/del',user.userRequired,memberTeam.team_del);
+    router.get('/team/invitation',user.userRequired,memberTeam.team_invitation);
     router.get('/team/topic/add',user.userRequired,memberTeam.topic_add);
     router.post('/team/topic/add',user.userRequired,memberTeam.topic_add_post);
     router.get('/team/topic/del',user.userRequired,memberTeam.topic_del);

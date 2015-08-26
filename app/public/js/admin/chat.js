@@ -42,12 +42,12 @@ seajs.use(['jquery','modal','validForm','template','tools','handler'],function($
             url:'/team/add?members=1&id='+teamId,
             success:function(ret){
                 if(!ret.status)return new modal().tips({content:ret.info});
-                new modal().showBtn({
+                var _showBtnModal=new modal().showBtn({
                     title:'团队菜单',
                     offset:{top:-20},
                     target:_this[0],
                     buttons:[
-                        {text:'团队设置',icon:'icon-pencil',before:function(){return USER._id==ret.info.owner},click:function(){
+                        {text:'团队设置',icon:'icon-pencil',hr:true,before:function(){return USER._id==ret.info.owner},click:function(){
                             var _modal=new modal().alert({
                                 title:'团队设置',
                                 padding:0,
@@ -68,18 +68,36 @@ seajs.use(['jquery','modal','validForm','template','tools','handler'],function($
                             });
                             //退出团队
                             _modal.boundingBox.find('.j-del').click(function(){
-                                validForm.request({
-                                    url:'/team/del?id='+teamId,
-                                    success:function(re){
-                                       if(!ret.status)return new modal().tips({content:ret.info});
-                                        new modal().tips({content:'退出成功！'});
-                                        window.location.reload();
-                                    }
+                                _modal.destroy();
+                                var txt=$(this).text();
+                                new modal().confirm({content:'确认要'+txt+'吗？'}).on('confirm',function(){
+                                    validForm.request({
+                                        url:'/team/del?id='+teamId,
+                                        success:function(re){
+                                           if(!ret.status)return new modal().tips({content:ret.info});
+                                            new modal().tips({content:txt+'成功！'});
+                                            window.location.reload();
+                                        }
+                                    })
                                 })
                             });
-                        }}
+                        }},
+                        {text:'添加团队',icon:'icon-plus-sign',url:'/team/list',hr:true,style:'color:#1976d2;'}
                     ]
                 });
+                //获取团队列表
+                validForm.request({
+                    url:'/team/list',
+                    success:function(ret){
+                        if(ret.status){
+                            var arr=[];
+                            ret.info.forEach(function(n){
+                                arr.push({text:n.name,icon:'icon-user',url:'/team?id='+n._id});
+                            });
+                            _showBtnModal.addButtons(arr);
+                        }
+                    }
+                })
             }
         });
     });

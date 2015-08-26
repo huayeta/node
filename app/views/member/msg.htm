@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if title%}<% title %>{% else %}提示信息{% endif %}</title>
+    <link rel="stylesheet" href="/style/team.css">
+</head>
+<body>
+    <div class="m-team-banner">{% if title%}<% title %>{% else %}提示信息{% endif %}</div>
+    <div class="m-team-list">
+        
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/js/sea.js"></script>
+<script type="text/javascript">
+seajs.use(['jquery'],function($){
+    
+});
+</script>

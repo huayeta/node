@@ -15,6 +15,7 @@ define('modal', function (require, exports, module) {
     
     modal.prototype=$.extend({},new widget(),{
         renderUI:function(){
+            var _this=this;
             switch(this.config.type){
                 case 'alert':
                     this.boundingBox=$('<div class="m-modal-con"><div class="modal-header"><span class="remove icon-remove"></span><span class="title">'+this.config.title+'</span></div><div class="modal-content" style="padding:'+this.config.padding+'">'+($.isFunction(this.config.content)?this.config.content():this.config.content)+'</div></div>');
@@ -27,15 +28,26 @@ define('modal', function (require, exports, module) {
                     break;
                 case 'showBtn':
                     this.boundingBox=$('<div class="m-modal-showBtn">'+(this.config.title?'<div class="modal-header"><span class="remove icon-remove"></span><span class="title">'+this.config.title+'</span></div>':'')+'<div class="modal-content showBtn"></div></div>');
-                    if(this.config.buttons && Array.isArray(this.config.buttons)){
+                    var index=0;
+                    _this.addButtons=function(buttons,tx){
                         var tpl='';
-                        this.config.buttons.forEach(function(n,index){
+                        buttons.forEach(function(n){
                             if(n.before && $.isFunction(n.before) && n.before()===false){return;};
-                            tpl+='<div class="item-menu" data-index="'+index+'"><i class="icon '+n.icon+'"></i><span class="tt">'+n.text+'</span></div>';
+                            tpl+='<div class="item-menu" data-index="'+index+'" '+(n.style?('style="'+n.style+'"'):'')+'><i class="icon '+n.icon+'"></i><span class="tt">'+n.text+'</span></div>';
                              n.hr && (tpl+='<div class="hr"></div>');
+                            index++;
                         });
-                        this.boundingBox.find('.showBtn').html(tpl);
+                        _this.boundingBox.find('.showBtn').append(tpl);
+                        if(!tx){
+                            _this.config.buttons=_this.config.buttons.concat(buttons);
+                        }
                     }
+                    if(this.config.buttons && Array.isArray(this.config.buttons)){
+                        _this.addButtons(this.config.buttons,true);
+                    }
+                    break;
+                case 'confirm':
+                    this.boundingBox=$('<div class="m-modal-con" style="width:390px;"><div class="modal-content">'+($.isFunction(this.config.content)?this.config.content():this.config.content)+'</div><div class="modal-footer"><a class="confirm">确认</a><a class="cancel">取消</a></div></div>');
                     break;
             }
             //处理模态
@@ -76,10 +88,26 @@ define('modal', function (require, exports, module) {
                     _this.boundingBox.delegate('.item-menu','click',function(){
                         var $this=$(this);
                         var index=$this.data('index');
-                        _this.config.buttons && Array.isArray(_this.config.buttons) && _this.config.buttons[index].click && _this.config.buttons[index].click();
+                        if(_this.config.buttons && Array.isArray(_this.config.buttons)){
+                            if(_this.config.buttons[index].url){
+                                window.location.href=_this.config.buttons[index].url;
+                            }else{
+                                _this.config.buttons[index].click && _this.config.buttons[index].click();
+                            }
+                        }
                         _this.close();
                     })
                     _this.mask.click(_this.close);
+                    break;
+                case 'confirm':
+                    _this.boundingBox.delegate('.modal-footer .confirm','click',function(){
+                        _this.fire('confirm');
+                        _this.destroy();
+                    });
+                    _this.boundingBox.delegate('.modal-footer .cancel','click',function(){
+                        _this.fire('cancel');
+                        _this.destroy();
+                    })
                     break;
             }
         },
@@ -116,15 +144,7 @@ define('modal', function (require, exports, module) {
             }
         },
         destructor:function(){
-            var _this=this;
-            switch(this.config.type){
-                case 'alert':
-                    this.mask && this.mask.remove();
-                    break;
-                case 'showBtn':
-                    this.mask && this.mask.remove();
-                    break;
-            }
+            this.mask && this.mask.remove();
         },
         alert:function(cfg){
              $.extend(this.config,cfg,{type:'alert'});
@@ -147,7 +167,7 @@ define('modal', function (require, exports, module) {
             return this;
         },
         confirm:function(cfg){
-            $.extend(true,this.config,{offset:{left:0,top:0}},cfg,{type:'confirm',isMask:'default'});
+            $.extend(true,this.config,{offset:{left:0,top:0}},cfg,{type:'confirm'});
             this.render();
             return this;
         }
@@ -173,6 +193,11 @@ define('modal', function (require, exports, module) {
 //                console.log(1);
 //            }
 //        }]
+//    });
+//    new modal().confirm({content:'11111'}).on('confirm',function(){
+//        console.log('confirm');
+//    }).on('cancel',function(){
+//        console.log('cancel');
 //    });
     return modal;
 })
