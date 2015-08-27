@@ -3,18 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>{% if title%}<% title %>{% else %}提示信息{% endif %}</title>
-    <link rel="stylesheet" href="/style/team.css">
+    <link rel="stylesheet" href="/style/common.css">
+    <style type="text/css">
+        body{background: #f5f5f5;}
+        .m-msg-banner{ height: 60px; line-height: 60px; background: #5c6bc0; color: #fff;  font-weight: 700; text-align: center; font-size: 18px; box-shadow: 0 0 2px 0 rgba(0,0,0,5);}
+        .m-msg-con{ width: 840px; max-width: 90%; margin: 20px auto; background: #fff; padding: 20px; box-shadow: 0 0 2px #eee;}
+        .m-msg-con .con{ font-size: 16px; color: green; margin-bottom: 10px;}
+    </style>
 </head>
 <body>
-    <div class="m-team-banner">{% if title%}<% title %>{% else %}提示信息{% endif %}</div>
-    <div class="m-team-list">
-        
+    <div class="m-msg-banner">{% if title%}<% title %>{% else %}提示信息{% endif %}</div>
+    <div class="m-msg-con f-tac">
+        <div class="con">
+            <% msg %>
+        </div>
+        <p class="s-gray"><i class="f-mr5" id="waite">5</i>秒后跳转,如果不跳转请<a href="{% if url %}<% url %>{% else %}javascript:history.go(-1);{% endif %}">点击此处</a></p>
     </div>
 </body>
 </html>
 <script type="text/javascript" src="/js/sea.js"></script>
 <script type="text/javascript">
 seajs.use(['jquery'],function($){
-    
+    var $waite=$('#waite');
+    var waite=parseInt($waite.text());
+    var timer=setInterval(function(){
+        waite--;
+        $waite.text(waite);
+        if(waite==0){
+            clearInterval(timer);
+            if('<% url %>'){
+                location.href='<% url %>';
+            }else{
+                history.go(-1);
+            }
+        }
+    },1000);
 });
 </script>

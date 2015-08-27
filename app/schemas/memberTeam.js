@@ -30,7 +30,7 @@ memberTeam.methods={
 //静态方法
 memberTeam.statics={
     fetch:function(ctx,cb){//查询所有内容
-        return this.find({owner:ctx.session.user._id}).sort('updatatime').exec(cb);
+        return this.find({'members':ctx.session.user._id}).sort('updatatime').exec(cb);
     },
     findByName:function(ctx,name,cb){
         return this.findOne({owner:ctx.session.user._id,name:name}).exec(cb);

@@ -8,13 +8,13 @@ var _=require('underscore');
 exports.team=function *(next){
     if(!this.query.id)return this.redirect('/team/list');
     var infos={};
+    infos.team=yield memberTeam.findOne({_id:this.query.id,members:this.session.user._id});
+    if(!infos.team) return this.redirect('/team/list');
     infos.topic=yield memberTopic.find({team:this.query.id,members:this.session.user._id});
     infos.user=yield member.findMember(this.session.user._id);
     if(!infos.user.avatar)infos.user.avatar='/member/common/avatar.jpg';
     infos.teamId=this.query.id;
-    infos.team=yield memberTeam.findById(this.query.id);
     infos.host=this.protocol+'://'+this.host;
-    if(!infos.team)return this.redirect('/team/list');
     if(!tools.isJson(this)){
         this.body=yield this.render('member/team/index',infos);
     }else{
@@ -95,7 +95,7 @@ exports.team_del=function *(next){
     if(!_memberTeam)return this.body=tools.error('参数错误');
     if(_memberTeam.owner!=this.session.user._id){
         //退出团队
-        yield _memberTeam.update({_id:id},{'$pull':{'members':this.session.user._id}});
+        var _new=yield memberTeam.update({_id:id},{'$pull':{'members':this.session.user._id}});
         return this.body=tools.success('退出成功');
     }else{
         //删除团队
@@ -110,7 +110,11 @@ exports.team_del=function *(next){
 //团队邀请
 exports.team_invitation=function *(next){
     var id=this.query.id;
-    
+    if(!id)return this.body=yield tools.msg(this,{msg:'团队不存在',url:'/team/list'});
+    var _memberTeam=yield memberTeam.findById(id);
+    if(!_memberTeam)return this.body=yield tools.msg(this,{msg:'团队不存在',url:'/team/list'});
+    yield memberTeam.update({_id:id},{'$addToSet':{'members':this.session.user._id}});
+    this.body=yield tools.msg(this,{msg:'加入团队成功',url:'/team/list'});
 }
 
 //话题添加

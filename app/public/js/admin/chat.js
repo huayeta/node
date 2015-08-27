@@ -47,7 +47,7 @@ seajs.use(['jquery','modal','validForm','template','tools','handler'],function($
                     offset:{top:-20},
                     target:_this[0],
                     buttons:[
-                        {text:'团队设置',icon:'icon-pencil',hr:true,before:function(){return USER._id==ret.info.owner},click:function(){
+                        {text:'团队设置',icon:'icon-pencil',hr:true,click:function(){
                             var _modal=new modal().alert({
                                 title:'团队设置',
                                 padding:0,
@@ -75,8 +75,7 @@ seajs.use(['jquery','modal','validForm','template','tools','handler'],function($
                                         url:'/team/del?id='+teamId,
                                         success:function(re){
                                            if(!ret.status)return new modal().tips({content:ret.info});
-                                            new modal().tips({content:txt+'成功！'});
-                                            window.location.reload();
+                                            new modal().tips({content:txt+'成功！'}).on('close',function(){window.location.reload();});
                                         }
                                     })
                                 })
@@ -92,7 +91,7 @@ seajs.use(['jquery','modal','validForm','template','tools','handler'],function($
                         if(ret.status){
                             var arr=[];
                             ret.info.forEach(function(n){
-                                arr.push({text:n.name,icon:'icon-user',url:'/team?id='+n._id});
+                                arr.push({text:n.name,icon:'icon-group',url:'/team?id='+n._id});
                             });
                             _showBtnModal.addButtons(arr);
                         }

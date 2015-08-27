@@ -16,6 +16,11 @@ tools.isJson=function(ctx){
     return ctx.accepts('html','json')=='json';
 }
 
+//指向信息页面
+tools.msg=function(ctx,obj){
+    return ctx.render('member/msg',obj);
+}
+
 //成功返回
 tools.success = function (info, url) {
     var _url = '';
