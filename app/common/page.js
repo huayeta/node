@@ -49,11 +49,11 @@ var findPagination = function (a) {
                     }
                 }else{
                     //大于5页的时候
-                    info.page.pages+='<li><a href="'+tools.getCurUrl({ctx:opts.ctx,add:{page:1}})+'"></a></li><li><a href="'+tools.getCurUrl({ctx:opts.ctx,add:{page:2}})+'"></a></li><li><span>...</span></li>';
-                    info.page.pages+='<li><a href="'+tools.getCurUrl({ctx:opts.ctx,add:{page:info.page.pageCur-1}})+'">'+i+'</a></li>';
+                    info.page.pages+='<li><a href="'+tools.getCurUrl({ctx:opts.ctx,add:{page:1}})+'">1</a></li><li><a href="'+tools.getCurUrl({ctx:opts.ctx,add:{page:2}})+'">2</a></li><li><span>...</span></li>';
+                    info.page.pages+='<li><a href="'+tools.getCurUrl({ctx:opts.ctx,add:{page:info.page.pageCur-1}})+'">'+(info.page.pageCur-1)+'</a></li>';
                     info.page.pages+='<li class="active"><span>'+info.page.pageCur+'</span></li>';
                     if(info.page.pageCur+1<=info.page.pageCount){
-                       info.page.pages+='<li><a href="'+tools.getCurUrl({ctx:opts.ctx,add:{page:info.page.pageCur+1}})+'">'+i+'</a></li>'; 
+                       info.page.pages+='<li><a href="'+tools.getCurUrl({ctx:opts.ctx,add:{page:info.page.pageCur+1}})+'">'+(info.page.pageCur+1)+'</a></li>'; 
                     }
                 }
                 //下一页

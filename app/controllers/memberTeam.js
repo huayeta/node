@@ -114,6 +114,7 @@ exports.team_invitation=function *(next){
     var _memberTeam=yield memberTeam.findById(id);
     if(!_memberTeam)return this.body=yield tools.msg(this,{msg:'团队不存在',url:'/team/list'});
     yield memberTeam.update({_id:id},{'$addToSet':{'members':this.session.user._id}});
+    yield memberTopic.update({team:id,isdel:false},{'$addToSet':{'members':this.session.user._id}});
     this.body=yield tools.msg(this,{msg:'加入团队成功',url:'/team/list'});
 }
 
