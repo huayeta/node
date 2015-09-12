@@ -1,0 +1,19 @@
+{
+  "name": "huayeta",
+  "version": "0.0.1",
+  "authors": [
+    "zh <zh@yingshangkeji.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/public/js/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.3"
+  }
+}

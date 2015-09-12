@@ -3,6 +3,8 @@ module.exports = function(app){
     var mongoose=require('mongoose');
     var session=require('koa-session-store');
     var mongooseStore=require('koa-session-mongoose');
+    var fs=require('fs');
+    var path=require('path');
     
     mongoose.connect('mongodb://127.0.0.1/huayeta');
     
@@ -101,6 +103,14 @@ module.exports = function(app){
     router.get('/weixiu',weixiu.index);
     router.get('/weixiu/support',weixiu.support);
     router.get('/weixiu/show',weixiu.show);
+    
+    //找到指定文件接口
+    router.get('/tpl',function *(next){
+        var name=this.query.name;
+        if(!name)return this.status=404;
+//        this.body=yield this.render(name,{});
+        this.body=(yield fs.readFile.bind(null,path.resolve(__dirname,'../app/views/',name+'.htm'))).toString();
+    });
     
     app.use(router.routes());
 };
