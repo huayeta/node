@@ -5,9 +5,9 @@ module.exports = function(app){
     var mongooseStore=require('koa-session-mongoose');
     var fs=require('fs');
     var path=require('path');
-    
+
     mongoose.connect('mongodb://127.0.0.1/huayeta');
-    
+
     //session的配置
     app.keys = ['huayeta']; //加密秘钥
     app.use(session({
@@ -16,9 +16,9 @@ module.exports = function(app){
             connection:mongoose.connection
         })
     }));
-        
+
     var router=new Router();
-    
+
     var index=require('../app/controllers/index');
     var member=require('../app/controllers/member');
     var user=require('../app/controllers/user');
@@ -32,14 +32,14 @@ module.exports = function(app){
     var adminWechat=require('../app/controllers/adminWechat');
     var memberTeam=require('../app/controllers/memberTeam');
     var weixiu=require('../app/controllers/weixiu');
-    
+
     //首页
     router.get('/',index.index);
-        
+
     //会员相关
     router.get('/member/getinfo',member.getinfo);
     router.post('/member/account',member.account_post);
-    
+
     //注册登陆
     router.get('/register',member.register);
     router.post('/register',member.register_post);
@@ -47,12 +47,12 @@ module.exports = function(app){
     router.post('/login',member.login_post);
     router.get('/getinfo',member.getinfo);
     router.get('/logout',member.logout);
-    
+
     //上传相关
     router.get('/upload/image',user.adminRequired,upload.image);
     router.post('/upload/image',user.adminRequired,upload.image_post);
     router.get('/upload/image_document',user.adminRequired,upload.image_document);
-    
+
     //后台列表
     router.get('/admin',admin.admin);
     router.get('/admin/login',admin.login);
@@ -85,7 +85,7 @@ module.exports = function(app){
     router.get('/admin/article/del',user.adminRequired,adminArticle.del);
     //微信文章搜索
     router.get('/admin/wechat/article',user.adminRequired,adminWechat.article);
-    
+
     //前台会员中心
     router.get('/team',user.userRequired,memberTeam.team);
     router.get('/team/list',user.userRequired,memberTeam.team_list);
@@ -98,19 +98,31 @@ module.exports = function(app){
     router.get('/team/topic/del',user.userRequired,memberTeam.topic_del);
     router.get('/team/infos',user.userRequired,memberTeam.infos);
 //    router.get('/member/team/topic/list',user.userRequired,memberTeam.topic_list);
-    
+
     //微秀
     router.get('/weixiu',weixiu.index);
     router.get('/weixiu/support',weixiu.support);
     router.get('/weixiu/show',weixiu.show);
-    
+
     //找到指定文件接口
     router.get('/tpl',function *(next){
         var name=this.query.name;
         if(!name)return this.status=404;
 //        this.body=yield this.render(name,{});
-        this.body=(yield fs.readFile.bind(null,path.resolve(__dirname,'../app/views/',name+'.htm'))).toString();
+        // console.log(name);
+        var result=/^(.+?)(?:\.([0-9a-zA-Z]+?))?\s*$/i.exec(name);
+        var tmpPath='';
+        if(result[1]){
+            if(!result[2]){
+                tmpPath=result[1]+'.htm';
+            }else{
+                tmpPath=name;
+            }
+        }
+        if(!tmpPath)return this.status=404;
+        // console.log(result);
+        this.body=(yield fs.readFile.bind(null,path.resolve(__dirname,'../app/views/',tmpPath))).toString();
     });
-    
+
     app.use(router.routes());
 };

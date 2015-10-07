@@ -105,7 +105,14 @@
         .swiper03 .con h2{ font-size: 26px; margin: 0.3em 15px; margin-top: -35px; border-bottom: 1px solid #fff;}
         .swiper03 .con .description{ font-weight: 400; padding:5px 0 5px; font-size: 16px;}
         /* swiper04 */
-        .swiper04 h2{ position: absolute; top: 30px; left: 0; right: 0; padding: 0 10px; font-size: 18px; text-align: center;}
+        .swiper04 h2{ position: absolute; top: 30px; left: 0; right: 0; padding: 0 10px; font-size: 18px; text-align: center; color: #fff;}
+        /* swiper05 */
+        .swiper05 .con{ padding-top: 20px;}
+        .swiper05 .con ul li{ font-size: 24px; color: #fff; text-align: center; line-height: 1.5;}
+        /* swiper06 */
+        .swiper06 .con{ padding:0.3em 15px; margin-top: 15px; background: rgba(77, 72, 72, 0.290196); font-size: 24px; color: #fff; line-height: 1.5;}
+        /* swiper07 */
+        .swiper07 .con{ padding:0.3em 15px; margin-top: 30px; background: rgba(77, 72, 72, 0.290196); font-size: 24px; color: #fff; line-height: 1.5;}
     </style>
 </head>
 
@@ -113,6 +120,20 @@
     <div style="max-width:640px; margin:0 auto;">
         <div class="swiper-container">
             <div class="swiper-wrapper">
+             <div class="swiper-slide swiper-lazy swiper07" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
+                 <div class="con ani" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1.5s" swiper-animate-delay="0s">想和当代名媛来一场浪漫的高尔夫之约吗？</div> 
+             </div>
+              <div class="swiper-slide swiper-lazy swiper06" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
+                    <div class="con ani" swiper-animate-effect="flipInY" swiper-animate-duration="1.5s" swiper-animate-delay="0s">想和当代名媛来一场浪漫的高尔夫之约吗？</div>
+                </div>
+               <div class="swiper-slide swiper-lazy swiper05" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
+                    <div class="con">
+                        <ul>
+                            <li class="ani" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1s" swiper-animate-delay="0s">名媛高尔夫</li>
+                            <li class="ani" swiper-animate-effect="fadeInRight" swiper-animate-duration="1s" swiper-animate-delay="0s">邀请函</li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="swiper-slide swiper-lazy swiper01" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
                 <h2 class="ani" swiper-animate-effect="bounceInUp" swiper-animate-duration="1s" swiper-animate-delay="0s"><span>标题</span></h2>
                 </div>
@@ -136,9 +157,6 @@
                 </div>
                 <div class="swiper-slide swiper-lazy swiper04" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
                     <h2 class="ani" swiper-animate-effect="zoomIn">标题</h2>
-                </div>
-                <div class="swiper-slide swiper-lazy" data-background="http://www.swiper.com.cn/demo/progressShow/img/zhiling1.jpg">
-                
                 </div>
             </div>
             <!-- BGM DOM -->
@@ -170,7 +188,7 @@
             }
         });
 
-        $(".bgm-btn").bind("touchstart", function (e) {
+        $(".bgm-btn").bind("touchstart click", function (e) {
             var dom = document.getElementById('bgm');
             if (dom.paused) {
                 dom.play();

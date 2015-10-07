@@ -3,11 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <script src="/js/components/react/react.min.js"></script>
+    <!-- <script src="/js/components/react/react.min.js"></script> -->
+    <script src="/js/components/react/react-with-addons.min.js"></script>
     <script src="/js/components/react/JSXTransformer.js"></script>
+    <style type="text/css">
+    .example-enter {
+opacity: 0.01;
+transition: opacity .5s ease-in;
+}
+
+.example-enter.example-enter-active {
+opacity: 1;
+}
+.example-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+}
+    </style>
 </head>
 <body>
     <div id="example"></div>
-    <script type="text/jsx" src="/js/react/demo-3.js"></script>
+    <script type="text/jsx" src="/js/react/demo-7.js"></script>
 </body>
 </html>
