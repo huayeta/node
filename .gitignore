@@ -1,5 +1,5 @@
 node_modules/
-public/js/components/
+app/public/js/components/
 
 npm-debug.log
 .DS_Store
