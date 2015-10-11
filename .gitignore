@@ -1,5 +1,6 @@
 node_modules/
 app/public/js/components/
+app/public/uploads/
 
 npm-debug.log
 .DS_Store
