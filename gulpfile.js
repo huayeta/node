@@ -6,6 +6,8 @@ var rename=require('gulp-rename');
 var del=require('del');
 var browerSync=require('browser-sync');
 var changed=require('gulp-changed');
+var jshint= require('gulp-jshint');
+var shell=require('gulp-shell');
 
 var DEST='hua_build';
 
@@ -13,6 +15,9 @@ var DEST='hua_build';
 gulp.task('clean',function(){
     del(DEST);
 });
+
+//shell任务
+gulp.task('shell',shell.task(['mongod --config /usr/local/etc/mongod.conf','supervisor -w config,app -i app/public,app/views  --harmony app']));
 
 //监控文件变动自动刷新浏览器
 gulp.task('serve',function(){
@@ -27,9 +32,11 @@ gulp.task('serve',function(){
 //压缩重命名合并
 gulp.task('default',['clean'],function(){
     var combined=combiner.obj([
-        gulp.src('hua/*'),//读取数据
+        gulp.src('hua/*.js'),//读取数据
         changed(DEST),//提前知道哪些文件被修改过
         // gulp.dest(DEST),//源文件输出
+        jshint(),
+        jshint.reporter('default'),
         uglify(),//压缩
         rename({extname:'.min.js'}),
         // gulp.dest(DEST),
