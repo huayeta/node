@@ -38,8 +38,8 @@
          bindUI: function () {}, //绑定事件
          syncUI: function () {}, //渲染跟绑定完之后的回调
          destructor: function () {} //销毁后的回调
-     }
+     };
 
      return widget;
 
- })
+ });

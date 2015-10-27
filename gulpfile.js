@@ -8,6 +8,7 @@ var browerSync=require('browser-sync');
 var changed=require('gulp-changed');
 var jshint= require('gulp-jshint');
 var shell=require('gulp-shell');
+var babel=require('gulp-babel');
 
 var DEST='hua_build';
 
@@ -30,21 +31,44 @@ gulp.task('serve',function(){
 });
 
 //压缩重命名合并
-gulp.task('default',['clean'],function(){
-    var combined=combiner.obj([
-        gulp.src('hua/*.js'),//读取数据
-        changed(DEST),//提前知道哪些文件被修改过
-        // gulp.dest(DEST),//源文件输出
-        jshint(),
-        jshint.reporter('default'),
-        uglify(),//压缩
-        rename({extname:'.min.js'}),
-        // gulp.dest(DEST),
-        concat('contat.min.js'),//合并数据
-        gulp.dest(DEST)//输出数据
-    ]);
+// gulp.task('default',['clean'],function(){
+//     var combined=combiner.obj([
+//         gulp.src('hua/*.js'),//读取数据
+//         changed(DEST),//提前知道哪些文件被修改过
+//         // gulp.dest(DEST),//源文件输出
+//         jshint(),
+//         jshint.reporter('default'),
+//         uglify(),//压缩
+//         rename({extname:'.min.js'}),
+//         // gulp.dest(DEST),
+//         concat('contat.min.js'),//合并数据
+//         gulp.dest(DEST)//输出数据
+//     ]);
+//
+//     //任何在上面stream中发生的错误，都不回抛出，而是会被监听器捕获
+//     combined.on('error',console.log.bind(console));
+//     return combined;
+// });
 
-    //任何在上面stream中发生的错误，都不回抛出，而是会被监听器捕获
+//babel
+var BABELDEST='./app/public/js/build/';
+var BABELSRC=['./app/public/js/*/*.es6','./app/public/js/*/*.jsx'];
+gulp.task('clean:babel',function(){
+    del(BABELDEST);
+});
+gulp.task('babel',function(){
+    var combined=combiner.obj([
+        gulp.src(BABELSRC),
+        changed(BABELDEST),
+        babel(),
+        uglify(),
+        gulp.dest(BABELDEST)
+    ]);
     combined.on('error',console.log.bind(console));
     return combined;
 });
+gulp.task('w-babel',['babel'],function(){
+    gulp.watch(BABELSRC,['babel']);
+});
+//default
+gulp.task('build',['clean:babel','babel']);

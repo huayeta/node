@@ -1,6 +1,6 @@
 define('box',function(require, exports, module){
 	var $=require('jquery');
-	
+
 	//分析url地址
 	var parseUrl=function(url) {
 		var a =  document.createElement('a');
@@ -29,7 +29,6 @@ define('box',function(require, exports, module){
 			segments: a.pathname.replace(/^\//,'').split('/')
 		};
 	}
-    
     //序列化
 	var serialize=function(obj){
 		switch(obj.constructor){
@@ -67,7 +66,7 @@ define('box',function(require, exports, module){
 				break;
 		}
 	}
-    
+
 	//幻灯特效
 	var slide=function(a){
 		var defaults={
@@ -105,7 +104,7 @@ define('box',function(require, exports, module){
 			});
 		});
 	}
-	
+
 	//判断是否登录
 	var isLogin=function(){
 		var status=true;
@@ -119,7 +118,7 @@ define('box',function(require, exports, module){
         });
 		return status;
 	}
-    
+
     //获取登陆会员的所有信息
     var getLoginInfo=function(a){
         var a=a||{};
@@ -169,7 +168,7 @@ define('box',function(require, exports, module){
         }
         return{name:getName(),mobile:getMobile()}
     }
-	
+
 	function getVal(a){
 		var a=a||{};
 		var defaults={
@@ -228,7 +227,7 @@ define('box',function(require, exports, module){
 		})
 	}
 	loginInfo({target:'[data-loginInfo]'});
-    
+
     //获取登陆弹窗
     var getLogin=function(a){
         var a=a||{};
@@ -252,7 +251,7 @@ define('box',function(require, exports, module){
             });
         });
     }
-	
+
 	var bindLogin=function(){
 		//点击如果登陆就直接跳转，不登陆就弹出登录窗口
 		$(document).delegate('.j-bindLogin','click',function(){
@@ -263,7 +262,7 @@ define('box',function(require, exports, module){
 			}
 		});
 	}
-	
+
 	//ie版本的判断
 	var IE = (function(){
 		var v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
@@ -273,7 +272,7 @@ define('box',function(require, exports, module){
 		);
 		return v > 4 ? v : false ;
 	}());
-	
+
 	//跟随窗口走动的div
 	var fix=function(a){
         var a=a||{};
@@ -309,14 +308,14 @@ define('box',function(require, exports, module){
 				if(footer_size>0 && top+H>footer_pos.top){
 					inner.css({'height':footer_pos.top-top+'px'});
 				}else{
-					inner.css({'height':'auto'});	
+					inner.css({'height':'auto'});
 				}
 			}else{
-				inner.css({'position':'static'});	
+				inner.css({'position':'static'});
 			}
 		});
 	}
-	
+
 	//输出系统时间
 	var getDate=function(format) {
 		try {
@@ -337,7 +336,7 @@ define('box',function(require, exports, module){
 			if (second < 10) {
 				second = "0" + second;
 			}
-			month = month + 1;	
+			month = month + 1;
 			if (month < 10) {
 				month = "0" + month;
 			}
@@ -408,8 +407,8 @@ define('box',function(require, exports, module){
                     }else{
                         _this.html(opts.isDay?'<i>'+day+'</i>天'+''+'<i>'+hour+'</i>时<i>'+minute+'</i>分<i>'+second+'</i>秒':''+'<i>'+hour+'</i>时<i>'+minute+'</i>分<i>'+second+'</i>秒')
                     }
-                    
-                } else { 
+
+                } else {
                     clearInterval(timer);
                     if($.isFunction(opts.endFn)){
                         opts.endFn(obj);
@@ -424,7 +423,7 @@ define('box',function(require, exports, module){
         }
 
     }
-    
+
     //直接购买
     var addOrder=function(a){
         var a=a||{};
@@ -451,7 +450,7 @@ define('box',function(require, exports, module){
             }
         })
     }
-    
+
     //往会员中心跳转
     var gotoMember=function(a){
         var a=a||{};
@@ -911,14 +910,14 @@ define('box',function(require, exports, module){
             var _this=$(this);
 			if(_this.attr('href').indexOf('comment')!=-1){
 				isCss=true;
-				return false;	
+				return false;
 			}
         });
 		if(!isCss){
-			$('head').append('<link href="'+opts.url+'" rel="stylesheet" type="text/css" />');	
-		} 
+			$('head').append('<link href="'+opts.url+'" rel="stylesheet" type="text/css" />');
+		}
     };
-    
+
     /*
         点击加载更多
         <script type="text/html" id="clickPage">
@@ -985,7 +984,7 @@ define('box',function(require, exports, module){
         if(_this.curPage==0){_this.successBefore();_this.requestPage();}
         return _this;
     }
-    
+
     //限制一个div里面的内容不超出
     var limitContainer=function(a){
         var a=a||{};
@@ -1022,7 +1021,7 @@ define('box',function(require, exports, module){
 	        });
         });
     };
-	
+
 
 	//限制image在div里面的布局
 	var limitImg=function(a){
@@ -1062,7 +1061,7 @@ define('box',function(require, exports, module){
             });
         })
 	}
-    
+
     //截取字符
     var toLimit=function(str,num){
         if(!str || !num)return '';
@@ -1074,35 +1073,35 @@ define('box',function(require, exports, module){
         return str?str:'';
     }
 
-    /** 
-    * 判断浏览器是否支持某一个CSS3属性 
-    * @param {String} 属性名称 
-    * @return {Boolean} true/false 
+    /**
+    * 判断浏览器是否支持某一个CSS3属性
+    * @param {String} 属性名称
+    * @return {Boolean} true/false
     */
 
-    function supportCss3(style) { 
-        var prefix = ['webkit', 'Moz', 'ms', 'o'], 
-        i, 
-        humpString = [], 
-        htmlStyle = document.documentElement.style, 
-        _toHumb = function (string) { 
-            return string.replace(/-(\w)/g, function ($0, $1) { 
-                return $1.toUpperCase(); 
-            }); 
-        }; 
+    function supportCss3(style) {
+        var prefix = ['webkit', 'Moz', 'ms', 'o'],
+        i,
+        humpString = [],
+        htmlStyle = document.documentElement.style,
+        _toHumb = function (string) {
+            return string.replace(/-(\w)/g, function ($0, $1) {
+                return $1.toUpperCase();
+            });
+        };
 
         for (i in prefix){
-            humpString.push(_toHumb(prefix[i] + '-' + style)); 
-            humpString.push(_toHumb(style)); 
+            humpString.push(_toHumb(prefix[i] + '-' + style));
+            humpString.push(_toHumb(style));
         }
 
         for (i in humpString){
             if (humpString[i] in htmlStyle) return true;
         }
 
-        return false; 
+        return false;
     }
-    	
+
 	module.exports={
 		parseUrl:parseUrl,//解析URL
         clickPage:clickPage,//点击加载更多

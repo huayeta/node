@@ -5,7 +5,7 @@ var style={
 
 var rawHTML={
     __html:"<h1>I'm inner HTML</h1>"
-}
+};
 var count=0;
 var HelloWorld=React.createClass({
     getDefaultProps:function(){
@@ -25,7 +25,7 @@ var HelloWorld=React.createClass({
         console.log(nextProps);
         console.log(this.props);
         nextProps.name=nextProps.name+nextProps.name;
-        if(nextProps.name=='')nextProps.name='World';
+        if(nextProps.name===''){nextProps.name='World';}
     },
     shouldComponentUpdate:function(){
         console.log('shouldComponentUpdate 7');
