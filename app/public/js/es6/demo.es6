@@ -18,5 +18,6 @@ function fn({x=0,y=0}={}){
 console.log(Array.protot);
 
 var huayeta=1;
-var huayeta1=2;
-var huayeta2;
+var huayeta=1;
+var huayeta=1;
+var huayeta=1;

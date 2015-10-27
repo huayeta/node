@@ -9,26 +9,27 @@ var changed=require('gulp-changed');
 var jshint= require('gulp-jshint');
 var shell=require('gulp-shell');
 var babel=require('gulp-babel');
+var sequence=require('gulp-sequence');//顺序or并行执行任务
 
-var DEST='hua_build';
+// var DEST='hua_build';
 
 //清楚工作
-gulp.task('clean',function(){
-    del(DEST);
-});
+// gulp.task('clean',function(){
+//     del(DEST);
+// });
 
 //shell任务
-gulp.task('shell',shell.task(['mongod --config /usr/local/etc/mongod.conf','supervisor -w config,app -i app/public,app/views  --harmony app']));
+// gulp.task('shell',shell.task(['mongod --config /usr/local/etc/mongod.conf','supervisor -w config,app -i app/public,app/views  --harmony app']));
 
 //监控文件变动自动刷新浏览器
-gulp.task('serve',function(){
-    browerSync({
-        server:{
-            baseDir:'app'
-        }
-    })
-    gulp.watch(['public/js/*/*.js','views/*.htm'],{cwd:'app'},browerSync.reload);
-});
+// gulp.task('serve',function(){
+//     browerSync({
+//         server:{
+//             baseDir:'app'
+//         }
+//     })
+//     gulp.watch(['public/js/*/*.js','views/*.htm'],{cwd:'app'},browerSync.reload);
+// });
 
 //压缩重命名合并
 // gulp.task('default',['clean'],function(){
@@ -53,8 +54,10 @@ gulp.task('serve',function(){
 //babel
 var BABELDEST='./app/public/js/build/';
 var BABELSRC=['./app/public/js/*/*.es6','./app/public/js/*/*.jsx'];
-gulp.task('clean:babel',function(){
-    del(BABELDEST);
+gulp.task('clean:babel',function(cb){
+    del(BABELDEST).then(function(paths){
+        cb();
+    });
 });
 gulp.task('babel',function(){
     var combined=combiner.obj([
@@ -62,6 +65,9 @@ gulp.task('babel',function(){
         changed(BABELDEST),
         babel(),
         uglify(),
+        rename(function(path){
+            path.extname='.min.js';
+        }),
         gulp.dest(BABELDEST)
     ]);
     combined.on('error',console.log.bind(console));
@@ -71,4 +77,5 @@ gulp.task('w-babel',['babel'],function(){
     gulp.watch(BABELSRC,['babel']);
 });
 //default
-gulp.task('build',['clean:babel','babel']);
+gulp.task('build',sequence('clean:babel','w-babel'));
+gulp.task('default',['build']);
