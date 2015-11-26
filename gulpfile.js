@@ -73,9 +73,12 @@ gulp.task('babel',function(){
     combined.on('error',console.log.bind(console));
     return combined;
 });
-gulp.task('w-babel',['babel'],function(){
+gulp.task('w-babel',function(){
     gulp.watch(BABELSRC,['babel']);
 });
+//build
+gulp.task('build',sequence('clean:babel','babel'));
+//watch
+gulp.task('watch',['w-babel']);
 //default
-gulp.task('build',sequence('clean:babel','w-babel'));
 gulp.task('default',['build']);
