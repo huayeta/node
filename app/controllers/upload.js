@@ -39,7 +39,7 @@ exports.image_post = function* (next) {
         yield formParse(this);
     //    console.log(fields);
     if (fields && fields.length > 0) {
-        var readStream = fs.createReadStream(fields[1].file.path);
+        // var readStream = fs.createReadStream(fields[1].file.path);
         //判断uploads目录存在
         var uploadsDir = path.join(__dirname, '../public/uploads');
         if (!(yield exists(uploadsDir))) yield mkdir(uploadsDir);
