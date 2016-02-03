@@ -11,8 +11,7 @@ var shell=require('gulp-shell');
 var babel=require('gulp-babel');
 var sequence=require('gulp-sequence');//顺序or并行执行任务
 
-// var DEST='hua_build';
-
+// var DEST='build';
 //清楚工作
 // gulp.task('clean',function(){
 //     del(DEST);
